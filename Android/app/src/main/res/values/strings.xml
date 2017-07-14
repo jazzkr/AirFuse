@@ -3,4 +3,16 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+    <string name="menu_overview">Overview</string>
+    <string name="menu_fuse_1">Fuse 1</string>
+    <string name="menu_fuse_2">Fuse 2</string>
+    <string name="menu_fuse_3">Fuse 3</string>
+    <string name="menu_title_fuse_control">Fuse Control</string>
+    <string name="menu_fc_fuse_history">Fuse History</string>
+    <string name="menu_title_other">Other</string>
+    <string name="menu_other_notifications">Notifications</string>
+    <string name="menu_other_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

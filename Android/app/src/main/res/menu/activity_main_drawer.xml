@@ -2,45 +2,44 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Overview" />
+            android:id="@+id/nav_overview"
+            android:icon="@drawable/ic_menu_overview"
+            android:title="@string/menu_overview" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Fuse 1" />
+            android:id="@+id/nav_fuse_1"
+            android:icon="@drawable/ic_menu_fuse"
+            android:title="@string/menu_fuse_1" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Fuse 2" />
+            android:id="@+id/nav_fuse_2"
+            android:icon="@drawable/ic_menu_fuse"
+            android:title="@string/menu_fuse_2" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Fuse 3" />
+            android:id="@+id/nav_fuse_3"
+            android:icon="@drawable/ic_menu_fuse"
+            android:title="@string/menu_fuse_3" />
     </group>
-    <item android:title="Fuse Control">
+    <item android:title="@string/menu_title_fuse_control">
         <menu>
             <item
-                android:id="@+id/nav_camera_2"
-                android:icon="@drawable/ic_menu_camera"
-                android:title="Fuse History" />
+                android:id="@+id/nav_history"
+                android:icon="@drawable/ic_menu_history"
+                android:title="@string/menu_fc_fuse_history" />
             <item
                 android:id="@+id/nav_gallery_2"
                 android:icon="@drawable/ic_menu_gallery"
                 android:title="Something" />
         </menu>
     </item>
-    <item android:title="Other">
+    <item android:title="@string/menu_title_other">
         <menu>
             <item
-                android:id="@+id/nav_camera_3"
-                android:icon="@drawable/ic_menu_camera"
-                android:title="Notifications" />
+                android:id="@+id/nav_notifications"
+                android:icon="@drawable/ic_menu_notifications"
+                android:title="@string/menu_other_notifications" />
             <item
-                android:id="@+id/nav_gallery_3"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="Settings" />
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/menu_other_settings" />
         </menu>
     </item>
-
 </menu>

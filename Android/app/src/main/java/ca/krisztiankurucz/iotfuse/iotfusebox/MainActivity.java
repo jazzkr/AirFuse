@@ -1,9 +1,8 @@
 package ca.krisztiankurucz.iotfuse.iotfusebox;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -66,13 +65,28 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_overview) {
+            // Create a new fragment and specify the planet to show based on position
+            Fragment fragment = new OverviewFragment();
+            Bundle args = new Bundle();
+            //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
 
-        } else if (id == R.id.nav_gallery) {
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
 
-        } else if (id == R.id.nav_slideshow) {
+            // Highlight the selected item, update the title, and close the drawer
+            //mDrawerList.setItemChecked(position, true);
+            //setTitle(mPlanetTitles[position]);
+            //mDrawerLayout.closeDrawer(mDrawerList);
+        } else if (id == R.id.nav_fuse_1) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_fuse_2) {
+
+        } else if (id == R.id.nav_fuse_3) {
 
         }
 
