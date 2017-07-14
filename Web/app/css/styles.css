@@ -845,8 +845,25 @@ section#map {
 }
 section#sponsors {
   background: white;
+  text-align: center;
+  padding-top: 0px;
 }
-
+section#sponsors .section-heading {
+  color: #999999;
+  text-align: center;
+}
+section#sponsors .section-heading h3 {
+  color: #999999;
+}
+section#sponsors .section-heading h3 span {
+  color: #de5749;
+}
+section#sponsors .section-heading .divider {
+  background: #de5749;
+}
+section#sponsors .section-heading p {
+  color: #999999;
+}
 footer {
   background-image: url(../img/grey.jpg);
   position: relative;
