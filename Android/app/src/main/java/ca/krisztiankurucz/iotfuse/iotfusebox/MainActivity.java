@@ -1,5 +1,6 @@
 package ca.krisztiankurucz.iotfuse.iotfusebox;
 
+import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -13,7 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        OverviewFragment.OnFragmentInteractionListener,
+        NotificationFragment.OnFragmentInteractionListener,
+        FuseFragment.OnFragmentInteractionListener,
+        HistoryFragment.OnFragmentInteractionListener,
+        ActionsFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener
+{
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Default push overview fragment
+        Fragment fragment = new OverviewFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+
+        setTitle("Overview");
     }
 
     @Override
@@ -45,7 +67,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -59,14 +81,13 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_overview) {
-            // Create a new fragment and specify the planet to show based on position
+            // Create overview fragment
             Fragment fragment = new OverviewFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
@@ -77,21 +98,143 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame, fragment)
                     .commit();
+            setTitle("Overview");
 
             // Highlight the selected item, update the title, and close the drawer
+            //mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            //mDrawerList = (ListViewCompat) findViewById(R.id.);
             //mDrawerList.setItemChecked(position, true);
-            //setTitle(mPlanetTitles[position]);
             //mDrawerLayout.closeDrawer(mDrawerList);
         } else if (id == R.id.nav_fuse_1) {
+            // Create fuse fragment
+            Fragment fragment = new FuseFragment();
+            Bundle args = new Bundle();
+            //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+            setTitle("Fuse 1");
 
         } else if (id == R.id.nav_fuse_2) {
+            // Create fuse fragment
+            Fragment fragment = new FuseFragment();
+            Bundle args = new Bundle();
+            //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+            setTitle("Fuse 2");
 
         } else if (id == R.id.nav_fuse_3) {
+            // Create fuse fragment
+            Fragment fragment = new FuseFragment();
+            Bundle args = new Bundle();
+            //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
 
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+            setTitle("Fuse 3");
+
+        } else if (id == R.id.nav_history) {
+            // Create history fragment
+            Fragment fragment = new HistoryFragment();
+            Bundle args = new Bundle();
+            //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+            setTitle("History");
+
+        } else if (id == R.id.nav_control) {
+            // Create actiosn fragment
+            Fragment fragment = new ActionsFragment();
+            Bundle args = new Bundle();
+            //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+            setTitle("Fuse Actions");
+
+        } else if (id == R.id.nav_notifications) {
+            // Create overview fragment
+            Fragment fragment = new NotificationFragment();
+            Bundle args = new Bundle();
+            //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+            setTitle("Notifications");
+        } else if (id == R.id.nav_settings) {
+            // Create action fragment
+            Fragment fragment = new SettingsFragment();
+            Bundle args = new Bundle();
+            //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
+
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .commit();
+            setTitle("Settings");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onOverviewFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onNavFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onFuseFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onHistoryFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onActionsFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onSettingsFragmentInteraction(Uri uri) {
+
     }
 }

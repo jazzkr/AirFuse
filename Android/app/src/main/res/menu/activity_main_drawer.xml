@@ -18,28 +18,34 @@
             android:icon="@drawable/ic_menu_fuse"
             android:title="@string/menu_fuse_3" />
     </group>
-    <item android:title="@string/menu_title_fuse_control">
-        <menu>
-            <item
-                android:id="@+id/nav_history"
-                android:icon="@drawable/ic_menu_history"
-                android:title="@string/menu_fc_fuse_history" />
-            <item
-                android:id="@+id/nav_gallery_2"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="Something" />
-        </menu>
-    </item>
-    <item android:title="@string/menu_title_other">
-        <menu>
-            <item
-                android:id="@+id/nav_notifications"
-                android:icon="@drawable/ic_menu_notifications"
-                android:title="@string/menu_other_notifications" />
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/menu_other_settings" />
-        </menu>
-    </item>
+
+        <item android:title="@string/menu_title_fuse_control">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_history"
+                        android:icon="@drawable/ic_menu_history"
+                        android:title="@string/menu_fc_fuse_history" />
+                    <item
+                        android:id="@+id/nav_control"
+                        android:icon="@drawable/ic_menu_control"
+                        android:title="@string/menu_fc_fuse_actions" />
+                </group>
+            </menu>
+        </item>
+
+        <item android:title="@string/menu_title_other">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_notifications"
+                        android:icon="@drawable/ic_menu_notifications"
+                        android:title="@string/menu_other_notifications" />
+                    <item
+                        android:id="@+id/nav_settings"
+                        android:icon="@drawable/ic_menu_manage"
+                        android:title="@string/menu_other_settings" />
+                </group>
+            </menu>
+        </item>
 </menu>
