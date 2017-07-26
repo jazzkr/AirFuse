@@ -1,8 +1,10 @@
 package ca.krisztiankurucz.iotfuse.iotfusebox;
 
 import android.net.Uri;
+import android.preference.PreferenceFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ca.krisztiankurucz.iotfuse.iotfusebox.dummy.DummyContent;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         OverviewFragment.OnFragmentInteractionListener,
@@ -20,7 +24,8 @@ public class MainActivity extends AppCompatActivity
         FuseFragment.OnFragmentInteractionListener,
         HistoryFragment.OnFragmentInteractionListener,
         ActionsFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener
+        SettingsFragment.OnFragmentInteractionListener,
+        HistoryTestFragment.OnListFragmentInteractionListener
 {
 
 
@@ -149,7 +154,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_history) {
             // Create history fragment
-            Fragment fragment = new HistoryFragment();
+            Fragment fragment = new HistoryTestFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
             fragment.setArguments(args);
@@ -190,7 +195,7 @@ public class MainActivity extends AppCompatActivity
             setTitle("Notifications");
         } else if (id == R.id.nav_settings) {
             // Create action fragment
-            Fragment fragment = new SettingsFragment();
+            PreferenceFragmentCompat fragment = new SettingsFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
             fragment.setArguments(args);
@@ -198,7 +203,7 @@ public class MainActivity extends AppCompatActivity
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, fragment)
+                    .replace(R.id.content, fragment)
                     .commit();
             setTitle("Settings");
         }
@@ -235,6 +240,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSettingsFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onHistoryListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
 }

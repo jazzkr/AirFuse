@@ -106,3 +106,5 @@ public class HistoryFragment extends Fragment {
         void onHistoryFragmentInteraction(Uri uri);
     }
 }
+
+

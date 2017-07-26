@@ -1,12 +1,23 @@
 package ca.krisztiankurucz.iotfuse.iotfusebox;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -63,8 +74,38 @@ public class FuseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_overview, container, false);
+        // in this example, a LineChart is initialized from xml
+        LineChart chart = view.findViewById(R.id.overview_chart);
+        chart.setDrawGridBackground(false);
+        chart.setDrawBorders(false);
+        YAxis left = chart.getAxisLeft();
+        left.setDrawGridLines(false);
+        //Disable right axis
+        YAxis right = chart.getAxisRight();
+        right.setEnabled(false);
+        //Disable top axis
+        XAxis xaxis = chart.getXAxis();
+        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xaxis.setDrawGridLines(false);
+        // Get data for chart
+        List<Entry> entries = new ArrayList<Entry>();
+        entries.add(new Entry(2, 2));
+        entries.add(new Entry(3, 3));
+        entries.add(new Entry(4, 4));
+        entries.add(new Entry(5, 5));
+        entries.add(new Entry(6, 4));
+        entries.add(new Entry(7, 3));
+        entries.add(new Entry(8, 4));
+        LineDataSet dataSet = new LineDataSet(entries, "Current (A)");
+        dataSet.setColor(Color.GREEN);
+        //dataSet.setValueTextColor(...); // styling, ...
+        LineData lineData = new LineData(dataSet);
+        chart.setData(lineData);
+
+        chart.invalidate(); // refresh
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fuse, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,3 +146,5 @@ public class FuseFragment extends Fragment {
         void onFuseFragmentInteraction(Uri uri);
     }
 }
+
+

@@ -3,21 +3,39 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_c28c6b7c676fc364aefb6a6bf4c5cab15f76802a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
         sha1="292b4bcecc1527c87724227751c7e1a792b940e5">
         <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_af620e9c1f76da4132ccce831700571648fd002f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\krisz\.android\build-cache\fb25ebce23b92367f99d0d532c783d0af5c886b2\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="348f7af741bba2f8aaaa29ba5fa5dd446097e6a6">
+        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0b4be4b6157b5074c7ab953087fd3b87bc81d5c4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\krisz\.gradle\caches\modules-2\files-2.1\com.github.PhilJay\MPAndroidChart\v3.0.2\5d4eb08a326bdbd7fbbddc769666898c9936b282\MPAndroidChart-v3.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="5d4eb08a326bdbd7fbbddc769666898c9936b282">
+        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\MPAndroidChart-v3.0.2_57789b0e63c6b172cc1a7710d500cd5864c3a1cd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_c28c6b7c676fc364aefb6a6bf4c5cab15f76802a\classes.dex" />
     </item>
 
 </items>
