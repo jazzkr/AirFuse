@@ -36,7 +36,6 @@
                 android:layout_width="120dp"
                 android:layout_margin="8dp"
                 android:text="RESET"
-                android:clickable="false"
                 android:textSize="14pt"/>
 
         </LinearLayout>
@@ -96,7 +95,6 @@
                 android:layout_width="120dp"
                 android:layout_margin="8dp"
                 android:text="RESET"
-                android:clickable="false"
                 android:textSize="14pt"/>
 
         </LinearLayout>
@@ -156,7 +154,6 @@
                 android:layout_width="120dp"
                 android:layout_margin="8dp"
                 android:text="RESET"
-                android:clickable="false"
                 android:textSize="14pt"/>
 
         </LinearLayout>

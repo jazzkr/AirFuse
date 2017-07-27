@@ -29,6 +29,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -155,8 +156,9 @@ public class FuseFragment extends Fragment {
                                     avg_current += c;
                                 }
                                 avg_current = avg_current / currList.size();
-
-                                entries.add(new Entry((float)key,(float)avg_current));
+                                //HACKY FIX HERE
+                                long passKey = key - 20000000;
+                                entries.add(new Entry((float)passKey,(float)avg_current, key));
                             }
 
                             LineDataSet dataSet = new LineDataSet(entries, "Current (A)");
@@ -166,7 +168,7 @@ public class FuseFragment extends Fragment {
                             LineChart chart = getView().findViewById(R.id.fuse_chart);
                             chart.setData(lineData);
                             chart.invalidate();
-                            
+
                         } catch(Exception e)
                         {
                             e.printStackTrace();
@@ -206,8 +208,9 @@ public class FuseFragment extends Fragment {
         xaxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                Date date = new Date((long) value * 1000);
+                Date date = new Date((long) value * 1000 * 60 + 20000000);
                 DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm");
+                //System.out.println(value + " = " + df.format(date));
                 return df.format(date);
             }
         });
