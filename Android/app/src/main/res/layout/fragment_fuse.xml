@@ -20,7 +20,7 @@
         android:textColor="@color/colorPrimaryDark"/>
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/overview_chart"
+        android:id="@+id/fuse_chart"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 

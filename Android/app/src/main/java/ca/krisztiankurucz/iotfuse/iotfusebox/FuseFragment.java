@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -81,13 +82,16 @@ public class FuseFragment extends Fragment {
         chart.setDrawBorders(false);
         YAxis left = chart.getAxisLeft();
         left.setDrawGridLines(false);
+
         //Disable right axis
         YAxis right = chart.getAxisRight();
         right.setEnabled(false);
+
         //Disable top axis
         XAxis xaxis = chart.getXAxis();
         xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xaxis.setDrawGridLines(false);
+
         // Get data for chart
         List<Entry> entries = new ArrayList<Entry>();
         entries.add(new Entry(2, 2));
@@ -99,10 +103,10 @@ public class FuseFragment extends Fragment {
         entries.add(new Entry(8, 4));
         LineDataSet dataSet = new LineDataSet(entries, "Current (A)");
         dataSet.setColor(Color.GREEN);
-        //dataSet.setValueTextColor(...); // styling, ...
+        dataSet.setCircleColor(Color.DKGRAY);
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
-
+        chart.setDescription(new Description());
         chart.invalidate(); // refresh
         // Inflate the layout for this fragment
         return view;

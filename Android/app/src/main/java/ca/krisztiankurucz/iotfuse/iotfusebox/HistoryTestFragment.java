@@ -10,10 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ca.krisztiankurucz.iotfuse.iotfusebox.dummy.DummyContent;
-import ca.krisztiankurucz.iotfuse.iotfusebox.dummy.DummyContent.DummyItem;
-
-import java.util.List;
+import ca.krisztiankurucz.iotfuse.iotfusebox.HistoryContent.HistoryItem;
 
 /**
  * A fragment representing a list of Items.
@@ -69,7 +66,7 @@ public class HistoryTestFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyHistoryRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyHistoryRecyclerViewAdapter(HistoryContent.ITEMS, mListener));
         }
         return view;
     }
@@ -104,6 +101,6 @@ public class HistoryTestFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onHistoryListFragmentInteraction(DummyItem item);
+        void onHistoryListFragmentInteraction(HistoryItem item);
     }
 }

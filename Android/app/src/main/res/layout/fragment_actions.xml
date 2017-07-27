@@ -4,10 +4,185 @@
     android:layout_height="match_parent"
     tools:context="ca.krisztiankurucz.iotfuse.iotfusebox.ActionsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fuse Actions fragment" />
+        android:orientation="vertical">
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Fuse 1"
+                android:textSize="16pt"
+                android:textColor="@color/colorPrimary"/>
+
+            <Button
+                android:id="@+id/trip_button_1"
+                android:layout_height="80dp"
+                android:layout_width="120dp"
+                android:layout_margin="8dp"
+                android:text="TRIP"
+                android:textSize="14pt"/>
+
+            <Button
+                android:id="@+id/reset_button_1"
+                android:layout_height="80dp"
+                android:layout_width="120dp"
+                android:layout_margin="8dp"
+                android:text="RESET"
+                android:clickable="false"
+                android:textSize="14pt"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:textAlignment="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="12pt"
+                android:text="Fuse Status: "/>
+
+            <TextView
+                android:id="@+id/status_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12pt"
+                android:text="GOOD" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_margin="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Fuse 2"
+                android:textSize="16pt"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/trip_button_2"
+                android:layout_height="80dp"
+                android:layout_width="120dp"
+                android:layout_margin="8dp"
+                android:text="TRIP"
+                android:textSize="14pt"/>
+
+            <Button
+                android:id="@+id/reset_button_2"
+                android:layout_height="80dp"
+                android:layout_width="120dp"
+                android:layout_margin="8dp"
+                android:text="RESET"
+                android:clickable="false"
+                android:textSize="14pt"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:textAlignment="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="12pt"
+                android:text="Fuse Status: "/>
+
+            <TextView
+                android:id="@+id/status_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12pt"
+                android:text="GOOD"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            android:layout_margin="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Fuse 3"
+                android:textSize="16pt"
+                android:textColor="@color/colorPrimary"/>
+
+            <Button
+                android:id="@+id/trip_button_3"
+                android:layout_height="80dp"
+                android:layout_width="120dp"
+                android:layout_margin="8dp"
+                android:text="TRIP"
+                android:textSize="14pt"/>
+
+            <Button
+                android:id="@+id/reset_button_3"
+                android:layout_height="80dp"
+                android:layout_width="120dp"
+                android:layout_margin="8dp"
+                android:text="RESET"
+                android:clickable="false"
+                android:textSize="14pt"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:textAlignment="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="12pt"
+                android:text="Fuse Status: "/>
+
+            <TextView
+                android:id="@+id/status_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12pt"
+                android:text="GOOD"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

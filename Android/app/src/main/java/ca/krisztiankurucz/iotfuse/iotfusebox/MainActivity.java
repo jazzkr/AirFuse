@@ -1,10 +1,8 @@
 package ca.krisztiankurucz.iotfuse.iotfusebox;
 
 import android.net.Uri;
-import android.preference.PreferenceFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,14 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import ca.krisztiankurucz.iotfuse.iotfusebox.dummy.DummyContent;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         OverviewFragment.OnFragmentInteractionListener,
         NotificationFragment.OnFragmentInteractionListener,
         FuseFragment.OnFragmentInteractionListener,
-        HistoryFragment.OnFragmentInteractionListener,
         ActionsFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener,
         HistoryTestFragment.OnListFragmentInteractionListener
@@ -115,6 +110,7 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment = new FuseFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            args.putString("graph_title", "Fuse 1 Consumption Graph");
             fragment.setArguments(args);
 
             // Insert the fragment by replacing any existing fragment
@@ -129,6 +125,7 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment = new FuseFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            args.putString("graph_title", "Fuse 2 Consumption Graph");
             fragment.setArguments(args);
 
             // Insert the fragment by replacing any existing fragment
@@ -143,6 +140,7 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment = new FuseFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            args.putString("graph_title", "Fuse 3 Consumption Graph");
             fragment.setArguments(args);
 
             // Insert the fragment by replacing any existing fragment
@@ -195,7 +193,7 @@ public class MainActivity extends AppCompatActivity
             setTitle("Notifications");
         } else if (id == R.id.nav_settings) {
             // Create action fragment
-            PreferenceFragmentCompat fragment = new SettingsFragment();
+            Fragment fragment = new SettingsFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
             fragment.setArguments(args);
@@ -203,7 +201,7 @@ public class MainActivity extends AppCompatActivity
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.content, fragment)
+                    .replace(R.id.content_frame, fragment)
                     .commit();
             setTitle("Settings");
         }
@@ -229,11 +227,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onHistoryFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
     public void onActionsFragmentInteraction(Uri uri) {
 
     }
@@ -244,7 +237,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onHistoryListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onHistoryListFragmentInteraction(HistoryContent.HistoryItem item) {
 
     }
 }
