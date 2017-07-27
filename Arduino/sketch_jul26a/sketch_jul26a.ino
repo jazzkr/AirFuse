@@ -3,6 +3,7 @@
 #include <WiFiEspClient.h>
 
 #include <stdio.h>
+#include <math.h>
 
 
 // struct definitions
@@ -12,6 +13,13 @@ struct fuse {
   char name[20];
   char desc[200];
   float current_limit;
+  float room_temp;
+  float last_current_reading;
+  float last_temperature_reading;
+  bool tripped;
+//  bool relay_status;
+//  bool last_current_reading;
+//  bool tripped;
 };
 
 
@@ -37,16 +45,35 @@ uint8_t f1ampSensorPin = A3;
 uint8_t f2ampSensorPin = A4;
 uint8_t f3ampSensorPin = A5;
 
-uint8_t ledClkSHCPPin = 7;
-uint8_t ledLatchSTCPPin = 6;
-uint8_t ledDataDSPin = 5;
+uint8_t clockPin = 7;
+uint8_t latchPin = 6;
+uint8_t dataPin = 5;
 
 uint8_t f1RelayPin = 2;
 uint8_t f2RelayPin = 3;
 uint8_t f3RelayPin = 4;
 
 
+// Grove Senor Initialization
+const int grove_B = 4275;               // B value of the thermistor
+const int grove_R0 = 100000;            // R0 = 100k
 
+// Current Sensor Initialization
+const float amp_m = (2.7 - 0)/(700 - 258);
+const float amp_b = 2.7 - amp_m * 700;
+
+// LED Patterns
+byte patterns[30] = {
+  B00000010, // Green, Fuse 1
+  B00000100, // Green, Fuse 2
+  B00001000, // Green, Fuse 3
+  B00010000, // Red, Fuse 1
+  B00100000, // Red, Fuse 2
+  B01000000, // Red, Fuse 3
+  B00000000, // All Off
+};
+
+byte selected_pattern;
 
 // WiFi Connection Settings
 //IPAddress ip_set(192, 168, 0, 176);    // ESP8266 IP Address
@@ -69,8 +96,19 @@ void setup() {
   Serial.begin(115200);
 
 // Pin Initialization Code
+pinMode(latchPin, OUTPUT);
+pinMode(clockPin, OUTPUT);
+pinMode(dataPin, OUTPUT);
+
+pinMode(f1RelayPin, OUTPUT);
+pinMode(f2RelayPin, OUTPUT);
+pinMode(f3RelayPin, OUTPUT);
 
 
+// LED Initialization
+selected_pattern = patterns[3] | patterns[4] | patterns[5];
+//Serial.println(selected_pattern);
+updateLEDs();
 
 // ESP8266 Initialization Code
   
@@ -112,28 +150,158 @@ void setup() {
 
   id = getAirFuseId();
 
-  f1 = (fuse){-1, id, "fuse 1", "This+is+fuse+1+of+testFuseBox1.", 1.6};
-  f2 = (fuse){-1, id, "fuse 2", "This+is+fuse+2+of+testFuseBox1.", 1.6};
-  f3 = (fuse){-1, id, "fuse 3", "This+is+fuse+3+of+testFuseBox1.", 1.6};
+  f1 = (fuse){-1, id, "fuse 1", "This+is+fuse+1+of+testFuseBox1.", 1.6, getTemperatureReading(1), -1, -1, false};
+  f2 = (fuse){-1, id, "fuse 2", "This+is+fuse+2+of+testFuseBox1.", 1.6, getTemperatureReading(2), -1, -1, false};
+  f3 = (fuse){-1, id, "fuse 3", "This+is+fuse+3+of+testFuseBox1.", 1.6, getTemperatureReading(3), -1, -1, false};
 
   Serial.print("Verify fuses exists, if not create them: ");
   Serial.print(verifyFusesOnServer());
   Serial.println();
+
+  // AirFuse Setup
+  turnOnRelay(1);
+  turnOnRelay(2);
+  turnOnRelay(3);
+  
+  selected_pattern = patterns[0] | patterns[1] | patterns[2];
+  updateLEDs();
+  
 }
 
 
 
 
 void loop() {
+
+  f1.last_temperature_reading = getTemperatureReading(1);
+  f2.last_temperature_reading = getTemperatureReading(2);
+  f3.last_temperature_reading = getTemperatureReading(3);
   
+  f1.last_current_reading = getCurrentReading(1);
+  f2.last_current_reading = getCurrentReading(2);
+  f3.last_current_reading = getCurrentReading(3);
 
   
-  while(true);
+  
+  publishCurrentReadings();
+  delay(1000);
+
 }
 
 
+float getTemperatureReading(int fuseNum)
+{
+  int tempSensorPin = -1;
+  if (fuseNum == 1){
+    tempSensorPin = f1tempSensorPin;
+  }
+  if (fuseNum == 2){
+    tempSensorPin = f2tempSensorPin;
+  }
+  if (fuseNum == 3){
+    tempSensorPin = f3tempSensorPin;
+  }
+  if (tempSensorPin != -1){
+    int a = analogRead(tempSensorPin);
+  
+    float R = 1023.0/a-1.0;
+    R = grove_R0*R;
+  
+    float temperature = 1.0/(log(R/grove_R0)/grove_B+1/298.15)-273.15; // convert to temperature via datasheet
+  
+    //Serial.print("temperature = ");
+    //Serial.println(temperature);
 
+    return temperature;
+  }
+  return 0;
+}
 
+float getCurrentReading(int fuseNum){
+  int tempAmpPin = -1;
+  if (fuseNum == 1){
+    tempAmpPin = f1ampSensorPin;
+  }
+  if (fuseNum == 2){
+    tempAmpPin = f2ampSensorPin;
+  }
+  if (fuseNum == 3){
+    tempAmpPin = f3ampSensorPin;
+  }
+  if (tempAmpPin != -1){
+    float current = 0.0;
+    for (int i = 0; i < 1000; i++){
+      int val = analogRead(tempAmpPin);
+      current = current + (amp_m * val) + amp_b;
+    }
+    return abs(current/1000.0);
+  }
+  return 0;
+}
+
+void turnOnRelay(int fuseNum)
+{
+  int relayPin = -1;
+  if (fuseNum == 1){
+    relayPin = f1RelayPin;
+  }
+  if (fuseNum == 2){
+    relayPin = f2RelayPin;
+  }
+  if (fuseNum == 3){
+    relayPin = f3RelayPin;
+  }
+  if (relayPin != -1){
+    digitalWrite(relayPin, HIGH);
+  }
+}
+
+void turnOffRelay(int fuseNum)
+{
+  int relayPin = -1;
+  if (fuseNum == 1){
+    relayPin = f1RelayPin;
+  }
+  if (fuseNum == 2){
+    relayPin = f1RelayPin;
+  }
+  if (fuseNum == 3){
+    relayPin = f1RelayPin;
+  }
+  if (relayPin != -1){
+    digitalWrite(relayPin, LOW);
+  }
+}
+
+void updateLEDs()
+{
+  digitalWrite(latchPin, LOW);
+  shiftOut(dataPin, clockPin, MSBFIRST, selected_pattern);
+  digitalWrite(latchPin, HIGH);
+  delay(50);
+  digitalWrite(latchPin, LOW);
+}
+
+void updateLEDsBasedOnStatus()
+{
+  selected_pattern = B00000000;
+  if (f1.tripped) {
+    selected_pattern = selected_pattern | patterns[3];
+  } else {
+    selected_pattern = selected_pattern | patterns[0];
+  }
+  if (f2.tripped) {
+    selected_pattern = selected_pattern | patterns[4];
+  } else {
+    selected_pattern = selected_pattern | patterns[1];
+  }
+  if (f3.tripped) {
+    selected_pattern = selected_pattern | patterns[5];
+  } else {
+    selected_pattern = selected_pattern | patterns[2];
+  }
+  updateLEDs();
+}
 
 void printWifiStatus()
 {
@@ -151,6 +319,20 @@ void printWifiStatus()
   Serial.print("Signal strength (RSSI):");
   Serial.print(rssi);
   Serial.println(" dBm");
+}
+
+void publishCurrentReadings()
+{
+  char buffer[200];
+  sprintf (buffer, "fuse=%d&current=%0.2f", f1.id, f1.last_current_reading);
+  executePOSTQuery("POST /AirFuse/fuseCurrentReading/ HTTP/1.1", buffer);
+
+  sprintf (buffer, "fuse=%d&current=%0.2f", f2.id, f2.last_current_reading);
+  executePOSTQuery("POST /AirFuse/fuseCurrentReading/ HTTP/1.1", buffer);
+
+  sprintf (buffer, "fuse=%d&current=%0.2f", f3.id, f3.last_current_reading);
+  executePOSTQuery("POST /AirFuse/fuseCurrentReading/ HTTP/1.1", buffer);
+  return;
 }
 
 bool checkIfAirFuseExists()
