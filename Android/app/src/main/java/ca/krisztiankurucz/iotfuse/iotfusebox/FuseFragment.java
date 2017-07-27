@@ -8,17 +8,35 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
 
 /**
@@ -38,6 +56,8 @@ public class FuseFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private FuseObject fuse;
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,14 +90,106 @@ public class FuseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        fuse = MainActivity.fuse_map.get(getArguments().getString("fuse_name"));
+        System.out.println("Loaded fuse: " + fuse.name);
+
+        // Get fuse information
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        String url ="http://django.utkarshsaini.com/AirFuse/fuseCurrentReading/" + Integer.toString(fuse.id);
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println("[HTTPGET] Response is: "+ response);
+                        try
+                        {
+                            JSONArray fuse_readings = new JSONArray(response);
+                            List<Long> times = new ArrayList<Long>();
+                            List<Double> currents = new ArrayList<Double>();
+                            for (int i = 0; i < fuse_readings.length(); i++)
+                            {
+                                JSONObject reading = fuse_readings.getJSONObject(i);
+                                String raw_date = reading.getString("created_at");
+                                double current = reading.getDouble("current");
+                                //Parse the timestamp to convert to unix epoch
+                                DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
+                                Date date = format.parse(raw_date);
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime(date);
+                                cal.add(Calendar.HOUR_OF_DAY, -4);
+                                date = cal.getTime();
+                                long inMinutes = (date.getTime()/1000)/60;
+                                times.add(inMinutes);
+                                currents.add(current);
+                                System.out.println(Long.toString(inMinutes) + ", " + Double.toString(current));
+                            }
+                            TreeMap<Long,ArrayList<Double>> collector = new TreeMap<>();
+                            for (int i = 0; i < times.size(); i++)
+                            {
+                                long t = times.get(i);
+                                double c = currents.get(i);
+                                if (collector.containsKey(t))
+                                {
+                                    collector.get(t).add(currents.get(i));
+                                } else
+                                {
+                                    ArrayList<Double> currList = new ArrayList<>();
+                                    currList.add(c);
+                                    collector.put(t, currList);
+                                }
+                            }
+                            System.out.println(collector.toString());
+                            //Go through hashmap, average, and add to entry
+                            ArrayList<Entry> entries = new ArrayList<>();
+                            for (long key: collector.keySet())
+                            {
+                                double avg_current = 0;
+                                ArrayList<Double> currList = collector.get(key);
+                                for (double c: currList)
+                                {
+                                    avg_current += c;
+                                }
+                                avg_current = avg_current / currList.size();
+
+                                entries.add(new Entry((float)key,(float)avg_current));
+                            }
+
+                            LineDataSet dataSet = new LineDataSet(entries, "Current (A)");
+                            dataSet.setColor(Color.GREEN);
+                            dataSet.setCircleColor(Color.DKGRAY);
+                            LineData lineData = new LineData(dataSet);
+                            LineChart chart = getView().findViewById(R.id.fuse_chart);
+                            chart.setData(lineData);
+                            chart.invalidate();
+                            
+                        } catch(Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        //mTextView.setText("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("That didn't work!");
+                //mTextView.setText("That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_overview, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_fuse, container, false);
+        ((TextView)view.findViewById(R.id.fuse_chart_name)).setText(getArguments().getString("graph_title"));
         // in this example, a LineChart is initialized from xml
-        LineChart chart = view.findViewById(R.id.overview_chart);
+        LineChart chart = view.findViewById(R.id.fuse_chart);
         chart.setDrawGridBackground(false);
         chart.setDrawBorders(false);
         YAxis left = chart.getAxisLeft();
@@ -91,23 +203,14 @@ public class FuseFragment extends Fragment {
         XAxis xaxis = chart.getXAxis();
         xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xaxis.setDrawGridLines(false);
-
-        // Get data for chart
-        List<Entry> entries = new ArrayList<Entry>();
-        entries.add(new Entry(2, 2));
-        entries.add(new Entry(3, 3));
-        entries.add(new Entry(4, 4));
-        entries.add(new Entry(5, 5));
-        entries.add(new Entry(6, 4));
-        entries.add(new Entry(7, 3));
-        entries.add(new Entry(8, 4));
-        LineDataSet dataSet = new LineDataSet(entries, "Current (A)");
-        dataSet.setColor(Color.GREEN);
-        dataSet.setCircleColor(Color.DKGRAY);
-        LineData lineData = new LineData(dataSet);
-        chart.setData(lineData);
-        chart.setDescription(new Description());
-        chart.invalidate(); // refresh
+        xaxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                Date date = new Date((long) value * 1000);
+                DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm");
+                return df.format(date);
+            }
+        });
         // Inflate the layout for this fragment
         return view;
     }

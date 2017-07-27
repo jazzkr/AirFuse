@@ -1,5 +1,15 @@
 package ca.krisztiankurucz.iotfuse.iotfusebox;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,45 +19,30 @@ import java.util.Map;
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
  * <p>
- * TODO: Replace all uses of this class before publishing your app.
  */
 public class HistoryContent {
 
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<HistoryItem> ITEMS = new ArrayList<HistoryItem>();
+    public static List<HistoryItem> ITEMS = new ArrayList<HistoryItem>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, HistoryItem> ITEM_MAP = new HashMap<String, HistoryItem>();
+    public static Map<String, HistoryItem> ITEM_MAP = new HashMap<String, HistoryItem>();
 
-    private static final int COUNT = 25;
+    //private static final int COUNT = 25;
 
-    static {
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createHistoryItem(i));
-        }
-    }
-
-    private static void addItem(HistoryItem item) {
+    public static void addItem(HistoryItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.date, item);
     }
 
-    private static HistoryItem createHistoryItem(int position) {
-        return new HistoryItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+    public static void clear()
+    {
+        ITEMS.clear();
+        ITEM_MAP.clear();
     }
 
     /**
@@ -57,11 +52,19 @@ public class HistoryContent {
         public final String date;
         public final String message;
         public final String details;
+        public final int fuse;
 
-        public HistoryItem(String date, String message, String details) {
-            this.date = date;
-            this.message = message;
+        public HistoryItem(String date, String message, String details, int fuse) {
+            String raw_date = date;
+            String raw_action = message;
+
+            //Todo: convert the raw date into human readable
+            this.date = raw_date;
+            this.message = raw_action;
             this.details = details;
+            this.fuse = fuse;
+
+
         }
 
         @Override

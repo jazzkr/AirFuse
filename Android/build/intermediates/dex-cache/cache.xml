@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
-        sha1="292b4bcecc1527c87724227751c7e1a792b940e5">
+        sha1="ff39ee7954eb4fe937cecff90edf3c6c154e6b4c">
         <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_af620e9c1f76da4132ccce831700571648fd002f\classes.dex" />
     </item>
     <item
@@ -36,6 +36,15 @@
         revision="26.0.0"
         sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
         <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_c28c6b7c676fc364aefb6a6bf4c5cab15f76802a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\krisz\.android\build-cache\9fdb3c85753d7ed60ee3d3330147c1fd06a14fd0\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
+        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c1322f6308c5b5959347d69534852dd351a9b000\classes.dex" />
     </item>
 
 </items>

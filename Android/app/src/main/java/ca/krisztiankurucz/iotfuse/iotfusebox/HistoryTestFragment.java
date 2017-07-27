@@ -10,6 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import ca.krisztiankurucz.iotfuse.iotfusebox.HistoryContent.HistoryItem;
 
 /**
@@ -49,6 +59,98 @@ public class HistoryTestFragment extends Fragment {
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+        }
+
+        //Discard old history content
+        HistoryContent.clear();
+
+        // Load fuse information for later
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+
+        for (String s: MainActivity.fuse_map.keySet()) {
+            FuseObject current_fuse = MainActivity.fuse_map.get(s);
+            String url_1 = "http://django.utkarshsaini.com/AirFuse/fuseUserActions/" + current_fuse.id;
+            String url_2 = "http://django.utkarshsaini.com/AirFuse/fuseStatus/" + current_fuse.id;
+            System.out.println(url_1);
+            System.out.println(url_2);
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url_1,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            System.out.println("[HTTPGET] Response is: "+ response);
+                            try
+                            {
+                                JSONArray user_actions = new JSONArray(response);
+                                for (int i = 0; i < user_actions.length(); i++)
+                                {
+                                    JSONObject action = user_actions.getJSONObject(i);
+                                    String raw_date = action.getString("created_at");
+                                    String raw_action = action.getString("action");
+                                    int fuse = action.getInt("fuse");
+                                    HistoryItem item = new HistoryItem(raw_date, raw_action, raw_action, fuse);
+                                    HistoryContent.addItem(item);
+                                }
+
+                                // Set the adapter
+                                RecyclerView recyclerView = (RecyclerView) getView();
+                                recyclerView.getAdapter().notifyDataSetChanged();
+
+                            } catch(Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+                            //mTextView.setText("Response is: "+ response.substring(0,500));
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println("That didn't work!");
+                    //mTextView.setText("That didn't work!");
+                }
+            });
+            // Request a string response from the provided URL.
+            StringRequest stringRequest2 = new StringRequest(Request.Method.GET, url_2,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            System.out.println("[HTTPGET] Response is: "+ response);
+                            try
+                            {
+                                JSONArray user_actions = new JSONArray(response);
+                                for (int i = 0; i < user_actions.length(); i++)
+                                {
+                                    JSONObject action = user_actions.getJSONObject(i);
+                                    String raw_date = action.getString("created_at");
+                                    String raw_status = action.getString("status");
+                                    int fuse = action.getInt("fuse");
+                                    HistoryItem item = new HistoryItem(raw_date, raw_status, raw_status, fuse);
+                                    HistoryContent.addItem(item);
+                                }
+
+                                // Set the adapter
+                                RecyclerView recyclerView = (RecyclerView) getView();
+                                recyclerView.getAdapter().notifyDataSetChanged();
+
+                            } catch(Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+                            //mTextView.setText("Response is: "+ response.substring(0,500));
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println("That didn't work!");
+                    //mTextView.setText("That didn't work!");
+                }
+            });
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest);
+            queue.add(stringRequest2);
         }
     }
 

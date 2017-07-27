@@ -13,6 +13,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         OverviewFragment.OnFragmentInteractionListener,
@@ -22,6 +35,14 @@ public class MainActivity extends AppCompatActivity
         SettingsFragment.OnFragmentInteractionListener,
         HistoryTestFragment.OnListFragmentInteractionListener
 {
+
+    public static final String fusebox_id = "14";
+
+    //public static ArrayList<FuseObject> fuse_list = new ArrayList<>();
+    public static HashMap<String,FuseObject> fuse_map = new HashMap<>();
+    //public static FuseObject fuse_1;
+    //public static FuseObject fuse_2;
+    //public static FuseObject fuse_3;
 
 
     @Override
@@ -52,6 +73,56 @@ public class MainActivity extends AppCompatActivity
                 .commit();
 
         setTitle("Overview");
+
+        // Load fuse information for later
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://django.utkarshsaini.com/AirFuse/fuse/" + fusebox_id + "/";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println("[HTTPGET] Response is: "+ response);
+                        try
+                        {
+                            JSONArray fuses = new JSONArray(response);
+                            for (int i = 0; i < fuses.length(); i++) {
+                                JSONObject f = fuses.getJSONObject(i);
+                                int id = f.getInt("id");
+                                String name = f.getString("name");
+                                String desc = f.getString("desc");
+                                double current_limit = f.getDouble("current_limit");
+
+                                FuseObject f_obj = new FuseObject(id,name,desc,current_limit);
+                                //fuse_list.add(f_obj);
+                                fuse_map.put(f_obj.name, f_obj);
+                                //System.out.println(f_obj.id);
+                                //System.out.println(f_obj.name);
+                                //System.out.println(f_obj.desc);
+                                //System.out.println(f_obj.current_limit);
+                            }
+                            for (String f_name: fuse_map.keySet())
+                            {
+                                System.out.println(fuse_map.get(f_name).name);
+                            }
+                        } catch(Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        //mTextView.setText("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("That didn't work!");
+                //mTextView.setText("That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     @Override
@@ -100,17 +171,13 @@ public class MainActivity extends AppCompatActivity
                     .commit();
             setTitle("Overview");
 
-            // Highlight the selected item, update the title, and close the drawer
-            //mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-            //mDrawerList = (ListViewCompat) findViewById(R.id.);
-            //mDrawerList.setItemChecked(position, true);
-            //mDrawerLayout.closeDrawer(mDrawerList);
         } else if (id == R.id.nav_fuse_1) {
             // Create fuse fragment
             Fragment fragment = new FuseFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
             args.putString("graph_title", "Fuse 1 Consumption Graph");
+            args.putString("fuse_name", "Fuse 1");
             fragment.setArguments(args);
 
             // Insert the fragment by replacing any existing fragment
@@ -126,6 +193,7 @@ public class MainActivity extends AppCompatActivity
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
             args.putString("graph_title", "Fuse 2 Consumption Graph");
+            args.putString("fuse_name", "Fuse 2");
             fragment.setArguments(args);
 
             // Insert the fragment by replacing any existing fragment
@@ -141,6 +209,7 @@ public class MainActivity extends AppCompatActivity
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
             args.putString("graph_title", "Fuse 3 Consumption Graph");
+            args.putString("fuse_name", "Fuse 3");
             fragment.setArguments(args);
 
             // Insert the fragment by replacing any existing fragment
@@ -165,7 +234,7 @@ public class MainActivity extends AppCompatActivity
             setTitle("History");
 
         } else if (id == R.id.nav_control) {
-            // Create actiosn fragment
+            // Create actions fragment
             Fragment fragment = new ActionsFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
