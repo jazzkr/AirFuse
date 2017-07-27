@@ -16,7 +16,7 @@ struct fuse {
   float room_temp;
   float last_current_reading;
   float last_temperature_reading;
-  bool tripped;
+  bool tripped; // 0 -> 'good', 1 -> 'tripped'
 //  bool relay_status;
 //  bool last_current_reading;
 //  bool tripped;
@@ -181,13 +181,108 @@ void loop() {
   f2.last_current_reading = getCurrentReading(2);
   f3.last_current_reading = getCurrentReading(3);
 
-  
-  
+  for (int i = 1; i < 4; i++) {
+    bool newfuseStatus = updateFuseStatus(i);
+    bool oldfuseStatus = getOldFuseStatus(i);
+    if (newfuseStatus != oldfuseStatus) {
+      if (newfuseStatus){
+        turnOffRelay(i);
+      } else {
+        turnOnRelay(i);
+      }
+      if (i == 1){
+        f1.tripped = newfuseStatus;
+      }
+      if (i == 2){
+        f2.tripped = newfuseStatus;
+      }
+      if (i == 3){
+        f3.tripped = newfuseStatus;
+      }
+      publishFuseStatus(i);
+    }
+  }
+
+  updateLEDsBasedOnStatus();
   publishCurrentReadings();
   delay(1000);
 
 }
 
+bool getOldFuseStatus(int fuseNum)
+{
+  bool old_status = false;
+  if (fuseNum == 1){
+    old_status = f1.tripped;
+  }
+  if (fuseNum == 2){
+    old_status = f2.tripped;
+  }
+  if (fuseNum == 3){
+    old_status = f3.tripped;
+  }
+
+  return old_status;
+}
+
+bool updateFuseStatus(int fuseNum)
+{
+  bool found = false;
+  float current_limit;
+  float room_temp;
+  float last_current_reading;
+  float last_temperature_reading;
+  bool tripped;
+
+  if (fuseNum == 1){
+    current_limit = f1.current_limit;
+    room_temp = f1.room_temp;
+    last_current_reading = f1.last_current_reading;
+    last_temperature_reading = f1.last_temperature_reading;
+    tripped = f1.tripped;
+    found = true;
+  }
+  if (fuseNum == 2){
+    current_limit = f2.current_limit;
+    room_temp = f2.room_temp;
+    last_current_reading = f2.last_current_reading;
+    last_temperature_reading = f2.last_temperature_reading;
+    tripped = f2.tripped;
+    found = true;
+  }
+  if (fuseNum == 3){
+    current_limit = f3.current_limit;
+    room_temp = f3.room_temp;
+    last_current_reading = f3.last_current_reading;
+    last_temperature_reading = f3.last_temperature_reading;
+    tripped = f3.tripped;
+    found = true;
+  }
+
+  if (found){
+    float percent_temp_increase = ((last_temperature_reading - room_temp)/room_temp) * 100;
+    bool newtripped;
+    if (tripped){
+      newtripped = true;
+      return newtripped;
+    }
+    
+    if (percent_temp_increase > 12 && last_current_reading < 0.1){
+      newtripped = true;
+      return newtripped;
+    }
+
+    if (last_current_reading > current_limit){
+      newtripped = true;
+      return newtripped;
+    }
+
+    newtripped = false;
+    return newtripped;
+  }
+
+  return "-1";
+}
 
 float getTemperatureReading(int fuseNum)
 {
@@ -332,6 +427,36 @@ void publishCurrentReadings()
 
   sprintf (buffer, "fuse=%d&current=%0.2f", f3.id, f3.last_current_reading);
   executePOSTQuery("POST /AirFuse/fuseCurrentReading/ HTTP/1.1", buffer);
+  return;
+}
+
+void publishFuseStatus(int fuseNum)
+{
+  int fuse_id = -1;
+  bool status = false;
+  if (fuseNum == 1) {
+    fuse_id = f1.id;
+    status = f1.tripped;
+  }
+  if (fuseNum == 2) {
+    fuse_id = f2.id;
+    status = f2.tripped;
+  }
+  if (fuseNum == 3) {
+    fuse_id = f3.id;
+    status = f3.tripped;
+  }
+  if (fuse_id != -1) {
+    char buffer[200];
+
+    if (status) {
+      sprintf (buffer, "fuse=%d&status=%s", fuse_id, "tripped");
+    } else {
+      sprintf (buffer, "fuse=%d&status=%s", fuse_id, "good");
+    }
+    executePOSTQuery("POST /AirFuse/fuseStatus/ HTTP/1.1", buffer);
+  }
+
   return;
 }
 
