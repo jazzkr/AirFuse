@@ -2,6 +2,8 @@
 #include <WiFiEsp.h> // Note: that this was modified to work with Arduino 101
 #include <WiFiEspClient.h>
 
+#include <ArduinoJson.h>
+
 #include <stdio.h>
 #include <math.h>
 
@@ -162,6 +164,10 @@ updateLEDs();
   turnOnRelay(1);
   turnOnRelay(2);
   turnOnRelay(3);
+
+  publishFuseStatus(1);
+  publishFuseStatus(2);
+  publishFuseStatus(3);
   
   selected_pattern = patterns[0] | patterns[1] | patterns[2];
   updateLEDs();
@@ -181,6 +187,8 @@ void loop() {
   f2.last_current_reading = getCurrentReading(2);
   f3.last_current_reading = getCurrentReading(3);
 
+  publishCurrentReadings();
+
   for (int i = 1; i < 4; i++) {
     bool newfuseStatus = updateFuseStatus(i);
     bool oldfuseStatus = getOldFuseStatus(i);
@@ -199,14 +207,172 @@ void loop() {
       if (i == 3){
         f3.tripped = newfuseStatus;
       }
+      updateLEDsBasedOnStatus();
       publishFuseStatus(i);
     }
   }
 
-  updateLEDsBasedOnStatus();
-  publishCurrentReadings();
-  delay(1000);
+  executeAnyUserAvailableUserActions();
 
+  updateLEDsBasedOnStatus();
+  delay(1000);
+}
+
+
+void executeAnyUserAvailableUserActions(){
+  char buffer[200];
+  sprintf (buffer, "GET /AirFuse/fuseUserActions2/%d/ HTTP/1.1", f1.id);
+  String data = executeGetQuery(buffer);
+
+  if (data != ""){
+    Serial.println(data);
+    int idIndex;
+    int actionIndex;
+    int commaIndex;
+    int action_id;
+    String user_action;
+    
+    //[{"id":7,"action":"trip","executed":false,"created_at":"2017-07-27T23:38:48.407770Z","updated_at":"2017-07-27T23:38:48.407821Z","fuse":7}]
+    idIndex = data.indexOf("id");
+    
+    while (idIndex != -1){
+      data = data.substring(idIndex);
+      commaIndex = data.indexOf(",");
+      action_id = data.substring(4, commaIndex).toInt();
+      actionIndex = data.indexOf("action");
+      data = data.substring(actionIndex);
+      commaIndex = data.indexOf(",");
+      user_action = data.substring(9, commaIndex - 1);
+
+      if (user_action == "trip"){
+        turnOffRelay(1);
+        f1.tripped = true;
+        updateLEDsBasedOnStatus();
+        publishFuseStatus(1);
+      }
+
+      if (user_action == "reset"){
+        turnOffRelay(1);
+        delay(50);
+        turnOnRelay(1);
+        f1.tripped = false;
+        updateLEDsBasedOnStatus();
+        publishFuseStatus(1);
+      }
+
+      Serial.println(action_id);
+      Serial.println(user_action);
+
+      char buffer2[200];
+      sprintf (buffer, "PUT /AirFuse/fuseUserActions2/%d/%d/ HTTP/1.1", f1.id, action_id);
+      sprintf (buffer2, "executed=1&fuse=%d&action=%d", f1.id, action_id);
+      executePOSTQuery(buffer, buffer2);
+
+      idIndex = data.indexOf("id");
+    }
+  }
+
+  sprintf (buffer, "GET /AirFuse/fuseUserActions2/%d/ HTTP/1.1", f2.id);
+  data = executeGetQuery(buffer);
+
+  if (data != ""){
+    Serial.println(data);
+    int idIndex;
+    int actionIndex;
+    int commaIndex;
+    int action_id;
+    String user_action;
+    
+    //[{"id":7,"action":"trip","executed":false,"created_at":"2017-07-27T23:38:48.407770Z","updated_at":"2017-07-27T23:38:48.407821Z","fuse":7}]
+    idIndex = data.indexOf("id");
+    
+    while (idIndex != -1){
+      data = data.substring(idIndex);
+      commaIndex = data.indexOf(",");
+      action_id = data.substring(4, commaIndex).toInt();
+      actionIndex = data.indexOf("action");
+      data = data.substring(actionIndex);
+      commaIndex = data.indexOf(",");
+      user_action = data.substring(9, commaIndex - 1);
+
+      if (user_action == "trip"){
+        turnOffRelay(2);
+        f2.tripped = true;
+        updateLEDsBasedOnStatus();
+        publishFuseStatus(2);
+      }
+
+      if (user_action == "reset"){
+        turnOffRelay(2);
+        delay(50);
+        turnOnRelay(2);
+        f2.tripped = false;
+        updateLEDsBasedOnStatus();
+        publishFuseStatus(2);
+      }
+
+      Serial.println(action_id);
+      Serial.println(user_action);
+
+      char buffer2[200];
+      sprintf (buffer, "PUT /AirFuse/fuseUserActions2/%d/%d/ HTTP/1.1", f2.id, action_id);
+      sprintf (buffer2, "executed=1&fuse=%d&action=%d", f2.id, action_id);
+      executePOSTQuery(buffer, buffer2);
+
+      idIndex = data.indexOf("id");
+    }
+  }
+
+  sprintf (buffer, "GET /AirFuse/fuseUserActions2/%d/ HTTP/1.1", f3.id);
+  data = executeGetQuery(buffer);
+
+  if (data != ""){
+    Serial.println(data);
+    int idIndex;
+    int actionIndex;
+    int commaIndex;
+    int action_id;
+    String user_action;
+    
+    //[{"id":7,"action":"trip","executed":false,"created_at":"2017-07-27T23:38:48.407770Z","updated_at":"2017-07-27T23:38:48.407821Z","fuse":7}]
+    idIndex = data.indexOf("id");
+    
+    while (idIndex != -1){
+      data = data.substring(idIndex);
+      commaIndex = data.indexOf(",");
+      action_id = data.substring(4, commaIndex).toInt();
+      actionIndex = data.indexOf("action");
+      data = data.substring(actionIndex);
+      commaIndex = data.indexOf(",");
+      user_action = data.substring(9, commaIndex - 1);
+
+      if (user_action == "trip"){
+        turnOffRelay(3);
+        f3.tripped = true;
+        updateLEDsBasedOnStatus();
+        publishFuseStatus(3);
+      }
+
+      if (user_action == "reset"){
+        turnOffRelay(3);
+        delay(50);
+        turnOnRelay(3);
+        f3.tripped = false;
+        updateLEDsBasedOnStatus();
+        publishFuseStatus(3);
+      }
+
+      Serial.println(action_id);
+      Serial.println(user_action);
+
+      char buffer2[200];
+      sprintf (buffer, "PUT /AirFuse/fuseUserActions2/%d/%d/ HTTP/1.1", f3.id, action_id);
+      sprintf (buffer2, "executed=1&fuse=%d&action=%d", f3.id, action_id);
+      executePOSTQuery(buffer, buffer2);
+
+      idIndex = data.indexOf("id");
+    }
+  }
 }
 
 bool getOldFuseStatus(int fuseNum)
@@ -325,11 +491,11 @@ float getCurrentReading(int fuseNum){
   }
   if (tempAmpPin != -1){
     float current = 0.0;
-    for (int i = 0; i < 1000; i++){
+    for (int i = 0; i < 500; i++){
       int val = analogRead(tempAmpPin);
       current = current + (amp_m * val) + amp_b;
     }
-    return abs(current/1000.0);
+    return abs(current/500.0);
   }
   return 0;
 }
@@ -358,10 +524,10 @@ void turnOffRelay(int fuseNum)
     relayPin = f1RelayPin;
   }
   if (fuseNum == 2){
-    relayPin = f1RelayPin;
+    relayPin = f2RelayPin;
   }
   if (fuseNum == 3){
-    relayPin = f1RelayPin;
+    relayPin = f3RelayPin;
   }
   if (relayPin != -1){
     digitalWrite(relayPin, LOW);
