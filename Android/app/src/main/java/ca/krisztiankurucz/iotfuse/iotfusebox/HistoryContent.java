@@ -16,8 +16,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -34,7 +36,7 @@ public class HistoryContent {
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static Map<String, HistoryItem> ITEM_MAP = new HashMap<String, HistoryItem>();
+    public static Map<String, HistoryItem> ITEM_MAP = new HashMap<>();
 
     //private static final int COUNT = 25;
 
@@ -57,6 +59,7 @@ public class HistoryContent {
         public final String message;
         public final String details;
         public final int fuse;
+        public final Date d;
 
         public HistoryItem(String date, String message, String details, int fuse) throws Exception {
 
@@ -67,10 +70,10 @@ public class HistoryContent {
             Calendar cal = Calendar.getInstance();
             cal.setTime(date_obj);
             cal.add(Calendar.HOUR_OF_DAY, -4);
-            date_obj = cal.getTime();
+            this.d = cal.getTime();
             DateFormat df = new SimpleDateFormat("dd/MM/yy h:mm:ss aa");
 
-            this.date = df.format(date_obj);
+            this.date = df.format(d);
 
             FuseObject fo = MainActivity.getFuseById(fuse);
 

@@ -20,6 +20,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import ca.krisztiankurucz.iotfuse.iotfusebox.HistoryContent.HistoryItem;
 
 /**
@@ -94,6 +97,11 @@ public class HistoryTestFragment extends Fragment {
                                     HistoryContent.addItem(item);
                                 }
 
+                                Collections.sort(HistoryContent.ITEMS, new Comparator<HistoryItem>() {
+                                    public int compare(HistoryItem o1, HistoryItem o2) {
+                                        return o2.d.compareTo(o1.d);
+                                    }
+                                });
                                 // Set the adapter
                                 RecyclerView recyclerView = (RecyclerView) getView();
                                 recyclerView.getAdapter().notifyDataSetChanged();
@@ -131,6 +139,11 @@ public class HistoryTestFragment extends Fragment {
                                     HistoryContent.addItem(item);
                                 }
 
+                                Collections.sort(HistoryContent.ITEMS, new Comparator<HistoryItem>() {
+                                    public int compare(HistoryItem o1, HistoryItem o2) {
+                                        return o2.d.compareTo(o1.d);
+                                    }
+                                });
                                 // Set the adapter
                                 RecyclerView recyclerView = (RecyclerView) getView();
                                 recyclerView.getAdapter().notifyDataSetChanged();
@@ -160,6 +173,9 @@ public class HistoryTestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_history_list, container, false);
 
         // Set the adapter
+
+        System.out.println("Sorted:");
+        System.out.println(HistoryContent.ITEMS);
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;

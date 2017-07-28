@@ -12,13 +12,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a67e64e9-71d6-416c-9a42-471825d1a214" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/FuseFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/FuseFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryContent.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryContent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/OverviewFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/OverviewFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryTestFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryTestFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MyHistoryRecyclerViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MyHistoryRecyclerViewAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/SettingsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/SettingsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_fuse.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_fuse.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_overview.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_overview.xml" />
     </list>
     <ignored path="Android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -94,10 +91,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OverviewFragment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="OverviewFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/OverviewFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="582">
+            <state relative-caret-position="2469">
               <caret line="220" column="112" selection-start-line="220" selection-start-column="112" selection-end-line="220" selection-end-column="112" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -110,11 +107,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingsFragment.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SettingsFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/SettingsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="160">
+              <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -125,8 +122,8 @@
       <file leaf-file-name="MyHistoryRecyclerViewAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MyHistoryRecyclerViewAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
+            <state relative-caret-position="238">
+              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -157,26 +154,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HistoryTestFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryTestFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="152" column="38" selection-start-line="152" selection-start-column="38" selection-end-line="152" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2829#4456#0" expanded="true" />
-                <element signature="e#4455#4456#0" expanded="true" />
-                <element signature="e#4458#4734#0" expanded="true" />
-                <element signature="e#4733#4734#0" expanded="true" />
-                <element signature="e#4909#6536#0" expanded="true" />
-                <element signature="e#6535#6536#0" expanded="true" />
-                <element signature="e#6538#6814#0" expanded="true" />
-                <element signature="e#6813#6814#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="FuseObject.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/FuseObject.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -190,12 +167,27 @@
       <file leaf-file-name="HistoryContent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryContent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="74" column="59" selection-start-line="74" selection-start-column="59" selection-end-line="74" selection-end-column="59" />
+            <state relative-caret-position="352">
+              <caret line="71" column="46" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#825#838#0" expanded="true" />
-                <element signature="e#969#990#0" expanded="true" />
+                <element signature="e#883#896#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HistoryTestFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryTestFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="143" column="64" selection-start-line="143" selection-start-column="64" selection-end-line="143" selection-end-column="64" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4065#4326#0" expanded="true" />
+                <element signature="e#4325#4326#0" expanded="true" />
+                <element signature="e#6480#6741#0" expanded="true" />
+                <element signature="e#6740#6741#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -2108,14 +2100,12 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/array.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/preferences.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/dummy/HistoryContent.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MyHistoryRecyclerViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_historytest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/fuse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/Fuse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryTestFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/FuseObject.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_actions.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/ActionsFragment.java" />
@@ -2124,8 +2114,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_overview.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_fuse.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryContent.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/SettingsFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MyHistoryRecyclerViewAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryContent.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryTestFragment.java" />
       </list>
     </option>
   </component>
@@ -2162,42 +2154,7 @@
     <panes>
       <pane id="ProjectPane" />
       <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iotfusebox" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+        <subPane />
       </pane>
       <pane id="Scratches" />
       <pane id="PackagesPane" />
@@ -2563,7 +2520,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16311301" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16311301" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2602,7 +2559,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16311301" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16311301" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3049,16 +3006,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MyHistoryRecyclerViewAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="310">
@@ -3082,55 +3029,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryContent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="74" column="59" selection-start-line="74" selection-start-column="59" selection-end-line="74" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#825#838#0" expanded="true" />
-            <element signature="e#969#990#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/FuseObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryTestFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="152" column="38" selection-start-line="152" selection-start-column="38" selection-end-line="152" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2829#4456#0" expanded="true" />
-            <element signature="e#4455#4456#0" expanded="true" />
-            <element signature="e#4458#4734#0" expanded="true" />
-            <element signature="e#4733#4734#0" expanded="true" />
-            <element signature="e#4909#6536#0" expanded="true" />
-            <element signature="e#6535#6536#0" expanded="true" />
-            <element signature="e#6538#6814#0" expanded="true" />
-            <element signature="e#6813#6814#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/OverviewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="220" column="112" selection-start-line="220" selection-start-column="112" selection-end-line="220" selection-end-column="112" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4249#4659#0" expanded="true" />
-            <element signature="e#4658#4659#0" expanded="true" />
-            <element signature="e#7799#7805#0" expanded="true" />
-            <element signature="e#7878#7886#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3144,10 +3047,59 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/SettingsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="160">
+          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/MyHistoryRecyclerViewAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryContent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="71" column="46" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#883#896#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/HistoryTestFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="143" column="64" selection-start-line="143" selection-start-column="64" selection-end-line="143" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4065#4326#0" expanded="true" />
+            <element signature="e#4325#4326#0" expanded="true" />
+            <element signature="e#6480#6741#0" expanded="true" />
+            <element signature="e#6740#6741#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/krisztiankurucz/iotfuse/iotfusebox/OverviewFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2469">
+          <caret line="220" column="112" selection-start-line="220" selection-start-column="112" selection-end-line="220" selection-end-column="112" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4249#4659#0" expanded="true" />
+            <element signature="e#4658#4659#0" expanded="true" />
+            <element signature="e#7799#7805#0" expanded="true" />
+            <element signature="e#7878#7886#0" expanded="true" />
           </folding>
         </state>
       </provider>
