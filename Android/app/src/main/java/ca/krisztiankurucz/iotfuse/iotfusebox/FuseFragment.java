@@ -204,6 +204,9 @@ public class FuseFragment extends Fragment {
                             LineDataSet dataSet = new LineDataSet(entries, "Current (A)");
                             dataSet.setColor(Color.GREEN);
                             dataSet.setCircleColor(Color.DKGRAY);
+                            dataSet.setDrawValues(false);
+                            dataSet.setDrawCircles(false);
+                            dataSet.setLineWidth(3);
                             LineData lineData = new LineData(dataSet);
                             LineChart chart = getView().findViewById(R.id.fuse_chart);
                             chart.setData(lineData);
@@ -225,12 +228,14 @@ public class FuseFragment extends Fragment {
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
+        String fuse_name = getArguments().getString("fuse_name");
         //Update fuse status as appropriate
         for (String sf: MainActivity.fuse_map.keySet())
         {
-            if(getArguments().getString("fuse_name") == sf)
+            System.out.println("Checking " + sf + " against " + fuse_name);
+            if(getArguments().getString("fuse_name").equals(sf))
             {
-                TextView status = (TextView) getActivity().findViewById(R.id.fuse_status);
+                TextView status = view.findViewById(R.id.fuse_status);
                 if (MainActivity.fuse_map.get(sf).status.equals("good"))
                 {
                     status.setText("GOOD");

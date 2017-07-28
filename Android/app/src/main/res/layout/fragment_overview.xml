@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:lineSpacingMultiplier="1.5"
-                android:text="N/A"
+                android:text="Not enough data"
                 android:layout_marginLeft="6dp"
                 android:textSize="12pt"
                 android:textColor="@color/colorPrimaryDark"/>
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:lineSpacingMultiplier="1.5"
-                android:text="N/A"
+                android:text="Not enough data"
                 android:layout_marginLeft="6dp"
                 android:textSize="12pt"
                 android:textColor="@color/colorPrimaryDark"/>
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:lineSpacingMultiplier="1.5"
-                android:text="All Fuses:"
+                android:text="Overall Status:"
                 android:layout_marginLeft="6dp"
                 android:textSize="12pt"
                 android:textColor="@color/colorPrimaryDark"/>
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:lineSpacingMultiplier="1.5"
-                android:text="GOOD"
+                android:text="ALL GOOD"
                 android:layout_marginLeft="6dp"
                 android:textSize="12pt"
                 android:textColor="#32CD32"/>

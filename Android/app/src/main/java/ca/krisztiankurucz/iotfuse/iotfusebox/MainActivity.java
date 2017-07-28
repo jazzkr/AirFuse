@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity
     //public static ArrayList<FuseObject> fuse_list = new ArrayList<>();
     public static HashMap<String,FuseObject> fuse_map = new HashMap<>();
 
+    public static boolean first_run = true;
+
     public static FuseObject getFuseByName(String fname)
     {
         for (String sf: fuse_map.keySet())
@@ -88,8 +90,12 @@ public class MainActivity extends AppCompatActivity
                 af.refreshActionFragment(findViewById(android.R.id.content));
             }
             OverviewFragment of = (OverviewFragment)getSupportFragmentManager().findFragmentByTag("OVERVIEW_FRAGMENT");
-            if (of != null && of.isVisible()) {
-                //of.updateOverviewChart();
+            if (of != null && of.isVisible() && MainActivity.first_run) {
+                of.updateOverviewChart();
+                if (MainActivity.first_run)
+                {
+                    MainActivity.first_run = false;
+                }
             }
             handler.postDelayed(this, 5000);
         }
@@ -119,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment)
+                .replace(R.id.content_frame, fragment, "OVERVIEW_FRAGMENT")
                 .commit();
 
         setTitle("Overview");

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.FragmentManager;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -130,6 +131,36 @@ public class OverviewFragment extends Fragment {
 
         updateOverviewChart();
 
+        TextView overall_status = view.findViewById(R.id.status_overview);
+
+        int tripped = 0;
+
+        for(String fs: MainActivity.fuse_map.keySet())
+        {
+            FuseObject fo = MainActivity.fuse_map.get(fs);
+
+            if (!fo.status.equals("good"))
+            {
+                tripped += 1;
+            }
+        }
+
+        //parse booleans to produce meaningful output for the status here
+        if (tripped == 0)
+        {
+            overall_status.setText("ALL GOOD");
+            overall_status.setTextColor(Color.GREEN);
+        } else if (tripped == 1)
+        {
+            overall_status.setText(tripped + " FUSE TRIPPED");
+            overall_status.setTextColor(Color.RED);
+        }
+        else
+        {
+            overall_status.setText(tripped + " FUSES TRIPPED");
+            overall_status.setTextColor(Color.RED);
+        }
+
         return view;
     }
 
@@ -182,6 +213,7 @@ public class OverviewFragment extends Fragment {
         LineDataSet dataSet = new LineDataSet(entries, "Current (A)");
         dataSet.setColor(Color.GREEN);
         dataSet.setCircleColor(Color.DKGRAY);
+        //dataSet.setDrawValues(false);
         LineData lineData = new LineData(dataSet);
         LineChart chart = getView().findViewById(R.id.overview_chart);
         chart.setData(lineData);
