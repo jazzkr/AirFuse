@@ -1,0 +1,122 @@
+AirFuse API
+
+- Note: created_at and updated_at times are in UTC, so -4 hours for Toronto
+
+http://django.utkarshsaini.com/AirFuse/fuseBox/
+ 
+A GET request to this url
+ - Retrieves all the fuseBoxes in the database
+
+A POST request with all the required fields (name, password, and desc) will CREATE a new fuseBox object.
+    Note: We are not liable for safe password storage as of now, as we are storing text
+
+
+
+http://django.utkarshsaini.com/AirFuse/fuseBox/<fusebox_id>
+
+ex: http://django.utkarshsaini.com/AirFuse/fuseBox/3
+
+A GET request to a url of this form will get you the details of the fusebox with that id, if it exists.
+
+A PUT request will update the details of the fuseBox if it exists.
+
+A DELETE request will delete the fuseBox object.
+
+
+
+http://django.utkarshsaini.com/AirFuse/fuse/
+
+A GET request to this url
+ - Retrieves all the fuse data in the database
+
+A POST request with all the required fields (fusebox id, name, desc, and current_limit) will CREATE a new fuse object.
+
+
+
+http://django.utkarshsaini.com/AirFuse/fuse/<fusebox_id>
+
+ex: http://django.utkarshsaini.com/AirFuse/fuse/4/
+
+A GET request to a url of this form will get you the details of the fuse part of the fusebox with that id, if it exists.
+
+
+
+http://django.utkarshsaini.com/AirFuse/fuse/<fusebox_id>/<fuse_id>
+
+ex: http://django.utkarshsaini.com/AirFuse/fuse/4/1
+
+A GET request to a url of this form will get you the details of the fuse with that id and that fusebox_id, if it exists.
+
+A PUT request will update the details of the fuse if it exists.
+
+A DELETE request will delete the fuse object.
+
+
+http://django.utkarshsaini.com/AirFuse/fuseCurrentReading/
+
+A GET request to this url
+ - Retrieves all the fuseCurrentReading data in the database
+
+A POST request with all the required fields (fuse id, current) will CREATE a new fuseCurrentReading object.
+
+
+http://django.utkarshsaini.com/AirFuse/fuseCurrentReading/<fuse_id>
+
+ex: http://django.utkarshsaini.com/AirFuse/fuseCurrentReading/1/
+
+A GET request to a url of this form will get you the details of the fuseCurrentReading with that fuse_id, if it exists.
+
+
+http://django.utkarshsaini.com/AirFuse/fuseStatus/
+
+A GET request to this url
+ - Retrieves all the fuseStatus data in the database
+
+A POST request with all the required fields (fuse_id, status, seen=False) will CREATE a new fuseStatus object.
+
+
+http://django.utkarshsaini.com/AirFuse/fuseStatus/<fuse_id>
+ex: http://django.utkarshsaini.com/AirFuse/fuseStatus/1/
+
+A GET request to a url of this form will get you the details of the fuseStatus with that fuse_id, if it exists.
+
+
+
+http://django.utkarshsaini.com/AirFuse/fuseStatus/<fuse_id>/<status_id>
+
+ex: http://django.utkarshsaini.com/AirFuse/fuseStatus/1/1/
+
+A GET request
+
+A PUT request will update the details of the fuseStatus if it exists.
+
+A DELETE request will delete the fuse object.
+
+
+
+
+http://django.utkarshsaini.com/AirFuse/fuseUserActions/
+
+A GET request to this url
+ - Retrieves all the fuseUserActions data in the database
+
+A POST request with all the required fields (fuse_id, actions, executed=False) will CREATE a new fuseUserActions object.
+
+
+http://django.utkarshsaini.com/AirFuse/fuseUserActions/<fuse_id>
+ex: http://django.utkarshsaini.com/AirFuse/fuseUserActions/1/
+
+A GET request to a url of this form will get you the details of the fuseUserActions with that fuse_id, if it exists.
+
+
+
+http://django.utkarshsaini.com/AirFuse/fuseUserActions/<fuse_id>/<actions_id>
+
+ex: http://django.utkarshsaini.com/AirFuse/fuseUserActions/1/1/
+
+A GET request
+
+A PUT request will update the details of the fuseUserActions if it exists.
+
+A DELETE request will delete the fuse object.
+
