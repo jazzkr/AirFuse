@@ -57,6 +57,19 @@ public class MainActivity extends AppCompatActivity
         return null;
     }
 
+    public static FuseObject getFuseById(int fid)
+    {
+        for (String sf: fuse_map.keySet())
+        {
+            FuseObject fo = fuse_map.get(sf);
+            if (fo.id == fid)
+            {
+                return fo;
+            }
+        }
+        return null;
+    }
+
     //Fuse status update timer
     // Create the Handler object (on the main thread by default)
     Handler handler = new Handler();
@@ -73,6 +86,10 @@ public class MainActivity extends AppCompatActivity
             ActionsFragment af = (ActionsFragment)getSupportFragmentManager().findFragmentByTag("ACTIONS_FRAGMENT");
             if (af != null && af.isVisible()) {
                 af.refreshActionFragment(findViewById(android.R.id.content));
+            }
+            OverviewFragment of = (OverviewFragment)getSupportFragmentManager().findFragmentByTag("OVERVIEW_FRAGMENT");
+            if (of != null && of.isVisible()) {
+                //of.updateOverviewChart();
             }
             handler.postDelayed(this, 5000);
         }
@@ -107,7 +124,7 @@ public class MainActivity extends AppCompatActivity
 
         setTitle("Overview");
 
-        // Load fuse information for later
+        // Load initial
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="http://django.utkarshsaini.com/AirFuse/fuse/" + fusebox_id + "/";
@@ -159,6 +176,8 @@ public class MainActivity extends AppCompatActivity
 
         // Start the initial runnable task by posting through the handler
         handler.post(pullFuseStatus);
+
+        ((OverviewFragment)fragment).updateOverviewChart();
     }
 
     @Override
@@ -170,6 +189,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
+        handler.post(pullFuseStatus);
     }
 
     @Override
@@ -214,7 +234,7 @@ public class MainActivity extends AppCompatActivity
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, fragment)
+                    .replace(R.id.content_frame, fragment, "OVERVIEW_FRAGMENT")
                     .commit();
             setTitle("Overview");
 
@@ -223,7 +243,7 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment = new FuseFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-            args.putString("graph_title", "Fuse 1 Consumption Graph");
+            args.putString("graph_title", "Fuse 1 Consumption");
             args.putString("fuse_name", "Fuse 1");
             fragment.setArguments(args);
 
@@ -239,7 +259,7 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment = new FuseFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-            args.putString("graph_title", "Fuse 2 Consumption Graph");
+            args.putString("graph_title", "Fuse 2 Consumption");
             args.putString("fuse_name", "Fuse 2");
             fragment.setArguments(args);
 
@@ -255,7 +275,7 @@ public class MainActivity extends AppCompatActivity
             Fragment fragment = new FuseFragment();
             Bundle args = new Bundle();
             //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-            args.putString("graph_title", "Fuse 3 Consumption Graph");
+            args.putString("graph_title", "Fuse 3 Consumption");
             args.putString("fuse_name", "Fuse 3");
             fragment.setArguments(args);
 

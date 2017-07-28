@@ -15,15 +15,43 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:lineSpacingMultiplier="1.5"
-        android:text="Fuse Consumption Graph"
-        android:layout_marginLeft="6dp"
+        android:text="Fuse Consumption"
+        android:layout_margin="10dp"
         android:textSize="12pt"
         android:textColor="@color/colorPrimaryDark"/>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/fuse_chart"
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="400dp"
+        android:layout_margin="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:lineSpacingMultiplier="1.5"
+            android:text="Status:"
+            android:layout_marginLeft="6dp"
+            android:textSize="12pt"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:id="@+id/fuse_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:lineSpacingMultiplier="1.5"
+            android:text="N/A"
+            android:layout_marginLeft="6dp"
+            android:textSize="12pt"
+            android:textColor="@color/colorPrimaryDark"/>
+    </LinearLayout>
 
     </LinearLayout>
 

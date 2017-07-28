@@ -62,7 +62,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         // Load the fragment_settings from an XML resource
-        addPreferencesFromResource(R.layout.fragment_settings);
+        //addPreferencesFromResource(R.layout.fragment_settings);
     }
 
     @Override

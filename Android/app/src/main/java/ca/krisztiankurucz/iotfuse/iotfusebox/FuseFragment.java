@@ -91,6 +91,46 @@ public class FuseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_fuse, container, false);
+        ((TextView)view.findViewById(R.id.fuse_chart_name)).setText(getArguments().getString("graph_title"));
+
+        // in this example, a LineChart is initialized from xml
+        LineChart chart = view.findViewById(R.id.fuse_chart);
+        chart.setDrawGridBackground(true);
+        chart.setDrawBorders(false);
+        YAxis left = chart.getAxisLeft();
+        left.setDrawGridLines(true);
+
+        //Disable right axis
+        YAxis right = chart.getAxisRight();
+        right.setEnabled(false);
+
+        //Disable description
+        Description description = new Description();
+        description.setText("");
+        chart.setDescription(description);
+
+        //Disable top axis
+        XAxis xaxis = chart.getXAxis();
+        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xaxis.setDrawGridLines(false);
+        xaxis.setLabelRotationAngle(-45);
+        xaxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                long epoch = (long) (value + 20000000) * 60 * 1000;
+                //System.out.println("Value: " + value + " Epoch: " + epoch);
+                Date date = new Date(epoch);
+                DateFormat df = new SimpleDateFormat("dd/MM/yy H:mm");
+                //System.out.println(value + " = " + df.format(date));
+
+                return df.format(date);
+            }
+        });
 
         fuse = MainActivity.fuse_map.get(getArguments().getString("fuse_name"));
         System.out.println("Loaded fuse: " + fuse.name);
@@ -184,36 +224,26 @@ public class FuseFragment extends Fragment {
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_fuse, container, false);
-        ((TextView)view.findViewById(R.id.fuse_chart_name)).setText(getArguments().getString("graph_title"));
-        // in this example, a LineChart is initialized from xml
-        LineChart chart = view.findViewById(R.id.fuse_chart);
-        chart.setDrawGridBackground(false);
-        chart.setDrawBorders(false);
-        YAxis left = chart.getAxisLeft();
-        left.setDrawGridLines(false);
-
-        //Disable right axis
-        YAxis right = chart.getAxisRight();
-        right.setEnabled(false);
-
-        //Disable top axis
-        XAxis xaxis = chart.getXAxis();
-        xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xaxis.setDrawGridLines(false);
-        xaxis.setValueFormatter(new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                Date date = new Date((long) value * 1000 * 60 + 20000000);
-                DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm");
-                //System.out.println(value + " = " + df.format(date));
-                return df.format(date);
+        //Update fuse status as appropriate
+        for (String sf: MainActivity.fuse_map.keySet())
+        {
+            if(getArguments().getString("fuse_name") == sf)
+            {
+                TextView status = (TextView) getActivity().findViewById(R.id.fuse_status);
+                if (MainActivity.fuse_map.get(sf).status.equals("good"))
+                {
+                    status.setText("GOOD");
+                    status.setTextColor(Color.GREEN);
+                }
+                else
+                {
+                    status.setText("TRIPPED");
+                    status.setTextColor(Color.RED);
+                }
             }
-        });
+        }
+
         // Inflate the layout for this fragment
         return view;
     }
