@@ -244,20 +244,27 @@ void executeAnyUserAvailableUserActions(){
       commaIndex = data.indexOf(",");
       user_action = data.substring(9, commaIndex - 1);
 
+      int executed = 0;
+      float percent_temp_increase = ((f1.last_temperature_reading - f1.room_temp)/f1.room_temp) * 100;
+      
       if (user_action == "trip"){
         turnOffRelay(1);
         f1.tripped = true;
         updateLEDsBasedOnStatus();
         publishFuseStatus(1);
+        executed = 1;
       }
 
       if (user_action == "reset"){
-        turnOffRelay(1);
-        delay(50);
-        turnOnRelay(1);
-        f1.tripped = false;
-        updateLEDsBasedOnStatus();
-        publishFuseStatus(1);
+        if (percent_temp_increase < 12) {
+          turnOffRelay(1);
+          delay(50);
+          turnOnRelay(1);
+          f1.tripped = false;
+          updateLEDsBasedOnStatus();
+          publishFuseStatus(1);
+          executed = 1;
+        }
       }
 
       Serial.println(action_id);
@@ -265,7 +272,7 @@ void executeAnyUserAvailableUserActions(){
 
       char buffer2[200];
       sprintf (buffer, "PUT /AirFuse/fuseUserActions2/%d/%d/ HTTP/1.1", f1.id, action_id);
-      sprintf (buffer2, "executed=1&fuse=%d&action=%d", f1.id, action_id);
+      sprintf (buffer2, "executed=%d&fuse=%d&action=%d", executed, f1.id, action_id);
       executePOSTQuery(buffer, buffer2);
 
       idIndex = data.indexOf("id");
@@ -295,20 +302,27 @@ void executeAnyUserAvailableUserActions(){
       commaIndex = data.indexOf(",");
       user_action = data.substring(9, commaIndex - 1);
 
+      int executed = 0;
+      float percent_temp_increase = ((f2.last_temperature_reading - f2.room_temp)/f2.room_temp) * 100;
+
       if (user_action == "trip"){
         turnOffRelay(2);
         f2.tripped = true;
         updateLEDsBasedOnStatus();
         publishFuseStatus(2);
+        executed = 1;
       }
 
       if (user_action == "reset"){
-        turnOffRelay(2);
-        delay(50);
-        turnOnRelay(2);
-        f2.tripped = false;
-        updateLEDsBasedOnStatus();
-        publishFuseStatus(2);
+        if (percent_temp_increase < 12) {
+            turnOffRelay(2);
+            delay(50);
+            turnOnRelay(2);
+            f2.tripped = false;
+            updateLEDsBasedOnStatus();
+            publishFuseStatus(2);
+            executed = 1;
+        }
       }
 
       Serial.println(action_id);
@@ -316,7 +330,7 @@ void executeAnyUserAvailableUserActions(){
 
       char buffer2[200];
       sprintf (buffer, "PUT /AirFuse/fuseUserActions2/%d/%d/ HTTP/1.1", f2.id, action_id);
-      sprintf (buffer2, "executed=1&fuse=%d&action=%d", f2.id, action_id);
+      sprintf (buffer2, "executed=%d&fuse=%d&action=%d", executed, f2.id, action_id);
       executePOSTQuery(buffer, buffer2);
 
       idIndex = data.indexOf("id");
@@ -346,20 +360,27 @@ void executeAnyUserAvailableUserActions(){
       commaIndex = data.indexOf(",");
       user_action = data.substring(9, commaIndex - 1);
 
+      int executed = 0;
+      float percent_temp_increase = ((f3.last_temperature_reading - f3.room_temp)/f3.room_temp) * 100;
+
       if (user_action == "trip"){
         turnOffRelay(3);
         f3.tripped = true;
         updateLEDsBasedOnStatus();
         publishFuseStatus(3);
+        executed = 1;
       }
 
       if (user_action == "reset"){
-        turnOffRelay(3);
-        delay(50);
-        turnOnRelay(3);
-        f3.tripped = false;
-        updateLEDsBasedOnStatus();
-        publishFuseStatus(3);
+        if (percent_temp_increase < 12) {
+          turnOffRelay(3);
+          delay(50);
+          turnOnRelay(3);
+          f3.tripped = false;
+          updateLEDsBasedOnStatus();
+          publishFuseStatus(3);
+          executed = 1;
+        }
       }
 
       Serial.println(action_id);
@@ -367,7 +388,7 @@ void executeAnyUserAvailableUserActions(){
 
       char buffer2[200];
       sprintf (buffer, "PUT /AirFuse/fuseUserActions2/%d/%d/ HTTP/1.1", f3.id, action_id);
-      sprintf (buffer2, "executed=1&fuse=%d&action=%d", f3.id, action_id);
+      sprintf (buffer2, "executed=%d&fuse=%d&action=%d", executed, f3.id, action_id);
       executePOSTQuery(buffer, buffer2);
 
       idIndex = data.indexOf("id");
