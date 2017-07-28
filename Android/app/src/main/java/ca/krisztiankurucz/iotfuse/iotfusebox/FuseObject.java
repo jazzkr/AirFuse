@@ -9,11 +9,13 @@ public class FuseObject {
     public String name;
     public String desc;
     public double current_limit;
+    public String status;
 
     FuseObject(int id, String name, String desc, double current_limit) {
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.current_limit = current_limit;
+        this.status = "Unknown";
     }
 }

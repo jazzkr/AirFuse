@@ -1,6 +1,7 @@
 package ca.krisztiankurucz.iotfuse.iotfusebox;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,6 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeMap;
 
 
@@ -97,6 +101,11 @@ public class ActionsFragment extends Fragment {
         reset_2.setEnabled(false);
         reset_3.setEnabled(false);
 
+        for (String sf: MainActivity.fuse_map.keySet())
+        {
+            FuseObject fo = MainActivity.fuse_map.get(sf);
+           ((MainActivity) getActivity()).getFuseStatus(fo);
+        }
         refreshActionFragment(view);
 
         reset_1.setOnClickListener(new View.OnClickListener()
@@ -105,8 +114,9 @@ public class ActionsFragment extends Fragment {
             public void onClick(View v)
             {
                 reset_1.setEnabled(false);
-                trip_1.setEnabled(true);
-                refreshActionFragment();
+                trip_1.setEnabled(false);
+                FuseObject fo = MainActivity.getFuseByName("Fuse 1");
+                sendFuseAction(fo, "reset");
             }
         });
         reset_2.setOnClickListener(new View.OnClickListener()
@@ -115,8 +125,9 @@ public class ActionsFragment extends Fragment {
             public void onClick(View v)
             {
                 reset_2.setEnabled(false);
-                trip_2.setEnabled(true);
-                refreshActionFragment();
+                trip_2.setEnabled(false);
+                FuseObject fo = MainActivity.getFuseByName("Fuse 2");
+                sendFuseAction(fo, "reset");
             }
         });
         reset_3.setOnClickListener(new View.OnClickListener()
@@ -125,8 +136,9 @@ public class ActionsFragment extends Fragment {
             public void onClick(View v)
             {
                 reset_3.setEnabled(false);
-                trip_3.setEnabled(true);
-                refreshActionFragment();
+                trip_3.setEnabled(false);
+                FuseObject fo = MainActivity.getFuseByName("Fuse 3");
+                sendFuseAction(fo, "reset");
             }
         });
         trip_1.setOnClickListener(new View.OnClickListener()
@@ -134,9 +146,10 @@ public class ActionsFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                reset_1.setEnabled(true);
+                reset_1.setEnabled(false);
                 trip_1.setEnabled(false);
-                refreshActionFragment();
+                FuseObject fo = MainActivity.getFuseByName("Fuse 1");
+                sendFuseAction(fo, "trip");
             }
         });
         trip_2.setOnClickListener(new View.OnClickListener()
@@ -144,9 +157,10 @@ public class ActionsFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                reset_2.setEnabled(true);
+                reset_2.setEnabled(false);
                 trip_2.setEnabled(false);
-                refreshActionFragment();
+                FuseObject fo = MainActivity.getFuseByName("Fuse 2");
+                sendFuseAction(fo, "trip");
             }
         });
         trip_3.setOnClickListener(new View.OnClickListener()
@@ -154,20 +168,14 @@ public class ActionsFragment extends Fragment {
             @Override
             public void onClick(View v)
             {
-                reset_3.setEnabled(true);
+                reset_3.setEnabled(false);
                 trip_3.setEnabled(false);
-                refreshActionFragment();
+                FuseObject fo = MainActivity.getFuseByName("Fuse 3");
+                sendFuseAction(fo, "trip");
             }
         });
 
         return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onActionsFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -189,74 +197,159 @@ public class ActionsFragment extends Fragment {
 
     public void refreshActionFragment(View view)
     {
-        // Get statuses of all three fuses, update UI accordingly
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-
-        for (String s: MainActivity.fuse_map.keySet()) {
-            FuseObject current_fuse = MainActivity.fuse_map.get(s);
-            // Request a string response from the provided URL.
-            String url = "http://django.utkarshsaini.com/AirFuse/fuseStatus/" + current_fuse.id;
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            System.out.println("[HTTPGET] Response is: " + response);
-                            try {
-                                JSONArray user_actions = new JSONArray(response);
-                                TreeMap<long, String> sorted_status = new TreeMap<>();
-                                int fuse_id = 0;
-                                for (int i = 0; i < user_actions.length(); i++) {
-                                    JSONObject action = user_actions.getJSONObject(i);
-                                    String raw_date = action.getString("created_at");
-                                    String raw_status = action.getString("status");
-                                    fuse = action.getInt("fuse");
-                                    DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
-                                    Date date = format.parse(raw_date);
-                                    Calendar cal = Calendar.getInstance();
-                                    cal.setTime(date);
-                                    cal.add(Calendar.HOUR_OF_DAY, -4);
-                                    date = cal.getTime();
-                                    sorted_status.put(date.getTime(),raw_status);
-                                }
-
-                                String fuse_status = sorted_status.lastEntry().getValue();
-
-                                TextView status;
-                                for (String key: MainActivity.fuse_map.keySet())
-                                {
-                                    FuseObject fo = MainActivity.fuse_map.get(key);
-                                    if (fo.id == fuse_id)
-                                    {
-                                        //Some hardcoding here...
-                                        if (fo.name.equals("Fuse 1")) {
-;
-                                        } else if(fo.name.equals("Fuse 2")) {
-
-                                        }
-                                    }
-                                }
-
-                                if (fuse_status.equals("good")) {
-
-                                } else {
-
-                                }
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            //mTextView.setText("Response is: "+ response.substring(0,500));
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println("That didn't work!");
-                    //mTextView.setText("That didn't work!");
+        //Slightly hardcoded since the view is also hardcoded for now
+        for (String sf: MainActivity.fuse_map.keySet())
+        {
+            FuseObject fo = MainActivity.fuse_map.get(sf);
+            if (fo.name.equals("Fuse 1"))
+            {
+                Button trip_1 = view.findViewById(R.id.trip_button_1);
+                Button reset_1 = view.findViewById(R.id.reset_button_1);
+                TextView status_1 = view.findViewById(R.id.status_1);
+                if(fo.status.equals("good"))
+                {
+                    trip_1.setEnabled(true);
+                    reset_1.setEnabled(false);
+                    status_1.setText("GOOD");
+                    status_1.setTextColor(Color.GREEN);
                 }
-            });
-            // Add the request to the RequestQueue.
-            queue.add(stringRequest);
+                else
+                {
+                    trip_1.setEnabled(false);
+                    reset_1.setEnabled(true);
+                    status_1.setText("TRIPPED");
+                    status_1.setTextColor(Color.RED);
+                }
+
+            } else if (fo.name.equals("Fuse 2"))
+            {
+                Button trip_2 = view.findViewById(R.id.trip_button_2);
+                Button reset_2 = view.findViewById(R.id.reset_button_2);
+                TextView status_2 = view.findViewById(R.id.status_2);
+                if(fo.status.equals("good"))
+                {
+                    trip_2.setEnabled(true);
+                    reset_2.setEnabled(false);
+                    status_2.setText("GOOD");
+                    status_2.setTextColor(Color.GREEN);
+                }
+                else
+                {
+                    trip_2.setEnabled(false);
+                    reset_2.setEnabled(true);
+                    status_2.setText("TRIPPED");
+                    status_2.setTextColor(Color.RED);
+                }
+            } else if (fo.name.equals("Fuse 3"))
+            {
+                Button trip_3 = view.findViewById(R.id.trip_button_3);
+                Button reset_3 = view.findViewById(R.id.reset_button_3);
+                TextView status_3 = view.findViewById(R.id.status_3);
+                if(fo.status.equals("good"))
+                {
+                    trip_3.setEnabled(true);
+                    reset_3.setEnabled(false);
+                    status_3.setText("GOOD");
+                    status_3.setTextColor(Color.GREEN);
+                }
+                else
+                {
+                    trip_3.setEnabled(false);
+                    reset_3.setEnabled(true);
+                    status_3.setText("TRIPPED");
+                    status_3.setTextColor(Color.RED);
+                }
+            }
         }
+    }
+
+    public void sendFuseAction(FuseObject fo, final String action)
+    {
+        //First check if fuse action is already sent, but not executed yet
+        final int fuseid = fo.id;
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        //url to get only non-executed commands from API
+        String url = "http://django.utkarshsaini.com/AirFuse/fuseUserActions2/";
+        StringRequest getRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        System.out.println("[HTTPGET] " + response);
+
+                        try
+                        {
+                            JSONArray unexecuted_actions = new JSONArray(response);
+                            for(int i = 0; i < unexecuted_actions.length(); i++)
+                            {
+                                JSONObject action = unexecuted_actions.getJSONObject(i);
+                                if (action.getInt("fuse") == fuseid && action.getString("action").equals(action))
+                                {
+                                    Context context = getContext();
+                                    CharSequence text = "Action already queued!";
+                                    int duration = Toast.LENGTH_LONG;
+
+                                    Toast toast = Toast.makeText(context, text, duration);
+                                    toast.show();
+                                    return;
+                                }
+                            }
+                            //if we got here, we're good to post
+                            postFuseAction(fuseid, action);
+                        } catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        System.out.println("That didn't work!");
+                        error.printStackTrace();
+                    }
+                }
+        );
+        queue.add(getRequest);
+    }
+
+    public void postFuseAction(final int fuseid, final String action)
+    {
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String url = "http://django.utkarshsaini.com/AirFuse/fuseUserActions/";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        System.out.println("Sent fuse action: " + action + " to " + fuseid);
+                        System.out.println("[HTTPPOST] " + response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        System.out.println("That didn't work!");
+                        error.printStackTrace();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<>();
+                params.put("fuse", Integer.toString(fuseid));
+                params.put("action", action);
+                return params;
+            }
+        };
+        queue.add(postRequest);
     }
 
 

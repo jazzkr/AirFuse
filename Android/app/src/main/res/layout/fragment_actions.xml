@@ -180,6 +180,17 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Fuse information updates every 5 seconds"
+            android:textStyle="italic"
+            android:textSize="8pt"
+            android:textColor="@color/colorAccent"
+            android:layout_margin="20dp"
+            android:layout_gravity="center"/>
+
+
     </LinearLayout>
 
 </FrameLayout>

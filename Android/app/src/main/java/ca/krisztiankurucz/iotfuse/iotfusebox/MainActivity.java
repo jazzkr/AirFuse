@@ -1,5 +1,6 @@
 package ca.krisztiankurucz.iotfuse.iotfusebox;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
@@ -23,8 +24,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -40,10 +43,40 @@ public class MainActivity extends AppCompatActivity
 
     //public static ArrayList<FuseObject> fuse_list = new ArrayList<>();
     public static HashMap<String,FuseObject> fuse_map = new HashMap<>();
-    //public static FuseObject fuse_1;
-    //public static FuseObject fuse_2;
-    //public static FuseObject fuse_3;
 
+    public static FuseObject getFuseByName(String fname)
+    {
+        for (String sf: fuse_map.keySet())
+        {
+            FuseObject fo = fuse_map.get(sf);
+            if (fo.name.equals(fname))
+            {
+                return fo;
+            }
+        }
+        return null;
+    }
+
+    //Fuse status update timer
+    // Create the Handler object (on the main thread by default)
+    Handler handler = new Handler();
+    // Define the code block to be executed
+    private Runnable pullFuseStatus = new Runnable() {
+        @Override
+        public void run() {
+            System.out.println("Running fuse update on main thread!");
+            for(String sf: fuse_map.keySet())
+            {
+                FuseObject fo = fuse_map.get(sf);
+                getFuseStatus(fo);
+            }
+            ActionsFragment af = (ActionsFragment)getSupportFragmentManager().findFragmentByTag("ACTIONS_FRAGMENT");
+            if (af != null && af.isVisible()) {
+                af.refreshActionFragment(findViewById(android.R.id.content));
+            }
+            handler.postDelayed(this, 5000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +156,20 @@ public class MainActivity extends AppCompatActivity
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+
+        // Start the initial runnable task by posting through the handler
+        handler.post(pullFuseStatus);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(pullFuseStatus);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -243,7 +290,7 @@ public class MainActivity extends AppCompatActivity
             // Insert the fragment by replacing any existing fragment
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, fragment)
+                    .replace(R.id.content_frame, fragment, "ACTIONS_FRAGMENT")
                     .commit();
             setTitle("Fuse Actions");
 
@@ -278,6 +325,101 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void getFuseStatus(FuseObject fuse)
+    {
+        final int fid = fuse.id;
+        // Get fuse information
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://django.utkarshsaini.com/AirFuse/fuseStatus/" + Integer.toString(fuse.id);
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        System.out.println("[HTTPGET] Response is: "+ response);
+                        try
+                        {
+                            JSONArray statuses = new JSONArray(response);
+                            TreeMap<Integer, String> statusMap = new TreeMap<>();
+                            for (int i = 0; i < statuses.length(); i++)
+                            {
+                                JSONObject s = statuses.getJSONObject(i);
+                                if (!s.getBoolean("seen"))
+                                {
+                                    setFuseSeen(fid, s.getInt("id"), s.getString("status"));
+                                    //Send notification here?
+                                }
+                                int id = s.getInt("id");
+                                String status = s.getString("status");
+                                statusMap.put(id, status);
+                            }
+                            for (String sf: MainActivity.fuse_map.keySet())
+                            {
+                                FuseObject fo = MainActivity.fuse_map.get(sf);
+                                if (fo.id == fid)
+                                {
+                                    fo.status = statusMap.lastEntry().getValue();
+                                    System.out.println("Updated " + fo.name + " status to " + fo.status);
+                                }
+
+                            }
+                        } catch(Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                        //mTextView.setText("Response is: "+ response.substring(0,500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("That didn't work!");
+                //mTextView.setText("That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    public void setFuseSeen(final int fuseid, final int fuseStatusId, final String fuseStatus)
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://django.utkarshsaini.com/AirFuse/fuseStatus/" + Integer.toString(fuseid) + "/" + Integer.toString(fuseStatusId) + "/";
+        StringRequest postRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        System.out.println("Tried updating fuse seen value!");
+                        System.out.println("[HTTPPOST] " + response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        System.out.println("That didn't work!");
+                        error.printStackTrace();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("fuse", Integer.toString(fuseid));
+                params.put("seen", "True");
+                params.put("status", fuseStatus);
+                return params;
+            }
+        };
+        queue.add(postRequest);
     }
 
     @Override
