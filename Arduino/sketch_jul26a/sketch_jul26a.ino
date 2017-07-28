@@ -27,9 +27,9 @@ struct fuse {
 
 
 // FuseBox Specific Information
-char fusebox_name[] = "testFuseBox1";
-char password[] = "helloWorld";
-char desc[] = "This+is+a+test+AirFuse+for+Intel+Hacks+2017.";
+char fusebox_name[] = "AndroidSampleFusebox";
+char password[] = "password";
+char desc[] = "This+is+the+sample+fusbox+for+testing+the+Android+app.+Do+not+edit+or+delete!";
 
 int id = -1;
 
@@ -76,6 +76,9 @@ byte patterns[30] = {
 };
 
 byte selected_pattern;
+
+// User defined variables
+int checkuseractioncounter;
 
 // WiFi Connection Settings
 //IPAddress ip_set(192, 168, 0, 176);    // ESP8266 IP Address
@@ -152,9 +155,9 @@ updateLEDs();
 
   id = getAirFuseId();
 
-  f1 = (fuse){-1, id, "fuse 1", "This+is+fuse+1+of+testFuseBox1.", 1.6, getTemperatureReading(1), -1, -1, false};
-  f2 = (fuse){-1, id, "fuse 2", "This+is+fuse+2+of+testFuseBox1.", 1.6, getTemperatureReading(2), -1, -1, false};
-  f3 = (fuse){-1, id, "fuse 3", "This+is+fuse+3+of+testFuseBox1.", 1.6, getTemperatureReading(3), -1, -1, false};
+  f1 = (fuse){-1, id, "Fuse+1", "This+is+fuse+1+of+the+Android+sample+fusebox.", 1.6, getTemperatureReading(1), -1, -1, false};
+  f2 = (fuse){-1, id, "Fuse+2", "This+is+fuse+2+of+the+Android+sample+fusebox.", 1.6, getTemperatureReading(2), -1, -1, false};
+  f3 = (fuse){-1, id, "Fuse+3", "This+is+fuse+2+of+the+Android+sample+fusebox.", 1.6, getTemperatureReading(3), -1, -1, false};
 
   Serial.print("Verify fuses exists, if not create them: ");
   Serial.print(verifyFusesOnServer());
@@ -171,7 +174,9 @@ updateLEDs();
   
   selected_pattern = patterns[0] | patterns[1] | patterns[2];
   updateLEDs();
-  
+
+
+  checkuseractioncounter = 0;
 }
 
 
@@ -212,10 +217,14 @@ void loop() {
     }
   }
 
-  executeAnyUserAvailableUserActions();
+  if (checkuseractioncounter > 3) {
+    executeAnyUserAvailableUserActions();
+    checkuseractioncounter = 0;
+  } else {
+    checkuseractioncounter = checkuseractioncounter + 1;
+  }
 
   updateLEDsBasedOnStatus();
-  delay(1000);
 }
 
 
@@ -272,7 +281,13 @@ void executeAnyUserAvailableUserActions(){
 
       char buffer2[200];
       sprintf (buffer, "PUT /AirFuse/fuseUserActions2/%d/%d/ HTTP/1.1", f1.id, action_id);
-      sprintf (buffer2, "executed=%d&fuse=%d&action=%d", executed, f1.id, action_id);
+      if (user_action == "trip") {
+        sprintf (buffer2, "executed=%d&fuse=%d&action=trip", executed, f1.id);
+      }
+
+      if (user_action == "reset") {
+        sprintf (buffer2, "executed=%d&fuse=%d&action=reset", executed, f1.id);
+      }
       executePOSTQuery(buffer, buffer2);
 
       idIndex = data.indexOf("id");
@@ -330,7 +345,13 @@ void executeAnyUserAvailableUserActions(){
 
       char buffer2[200];
       sprintf (buffer, "PUT /AirFuse/fuseUserActions2/%d/%d/ HTTP/1.1", f2.id, action_id);
-      sprintf (buffer2, "executed=%d&fuse=%d&action=%d", executed, f2.id, action_id);
+      if (user_action == "trip") {
+        sprintf (buffer2, "executed=%d&fuse=%d&action=trip", executed, f2.id);
+      }
+
+      if (user_action == "reset") {
+        sprintf (buffer2, "executed=%d&fuse=%d&action=reset", executed, f2.id);
+      }
       executePOSTQuery(buffer, buffer2);
 
       idIndex = data.indexOf("id");
@@ -388,7 +409,13 @@ void executeAnyUserAvailableUserActions(){
 
       char buffer2[200];
       sprintf (buffer, "PUT /AirFuse/fuseUserActions2/%d/%d/ HTTP/1.1", f3.id, action_id);
-      sprintf (buffer2, "executed=%d&fuse=%d&action=%d", executed, f3.id, action_id);
+      if (user_action == "trip") {
+        sprintf (buffer2, "executed=%d&fuse=%d&action=trip", executed, f3.id);
+      }
+
+      if (user_action == "reset") {
+        sprintf (buffer2, "executed=%d&fuse=%d&action=reset", executed, f3.id);
+      }
       executePOSTQuery(buffer, buffer2);
 
       idIndex = data.indexOf("id");
@@ -512,11 +539,11 @@ float getCurrentReading(int fuseNum){
   }
   if (tempAmpPin != -1){
     float current = 0.0;
-    for (int i = 0; i < 500; i++){
+    for (int i = 0; i < 200; i++){
       int val = analogRead(tempAmpPin);
       current = current + (amp_m * val) + amp_b;
     }
-    return abs(current/500.0);
+    return abs(current/200.0);
   }
   return 0;
 }
@@ -701,23 +728,27 @@ bool verifyFusesOnServer()
     sprintf (buffer, "GET /AirFuse/fuse/%d/ HTTP/1.1", id);
     data = executeGetQuery(buffer);
 
-    //Serial.println(data);
+    Serial.println(data);
 
-    int idIndex = data.indexOf("id");
-    data = data.substring(idIndex+4);
+    int idIndex = data.indexOf("\"id\"");
+    data = data.substring(idIndex+5);
     int commaIndex = data.indexOf(",");
     f1.id = data.substring(0,commaIndex).toInt();
     
-    idIndex = data.indexOf("id");
-    data = data.substring(idIndex+4);
+    idIndex = data.indexOf("\"id\"");
+    data = data.substring(idIndex+5);
     commaIndex = data.indexOf(",");
     f2.id = data.substring(0,commaIndex).toInt();
 
-    idIndex = data.indexOf("id");
-    data = data.substring(idIndex+4);
+    idIndex = data.indexOf("\"id\"");
+    data = data.substring(idIndex+5);
     commaIndex = data.indexOf(",");
     f3.id = data.substring(0,commaIndex).toInt();
-   
+
+    Serial.println(f1.id);
+    Serial.println(f2.id);
+    Serial.println(f3.id);
+    
     return true;
   }
 }
@@ -748,6 +779,7 @@ String executeGetQuery(String request)
 {
   Serial.println();
   Serial.println("Starting connection to server...");
+  Serial.println(request);
   // if you get a connection, report back via serial
   if (client.connect(server, 80)) {
     Serial.println("Connected to server");
@@ -812,6 +844,8 @@ void executePOSTQuery(String request, String data)
 {
   Serial.println();
   Serial.println("Starting connection to server...");
+  Serial.println(request);
+  Serial.println(data);
   // if you get a connection, report back via serial
   if (client.connect(server, 80)) {
     Serial.println("Connected to server");
