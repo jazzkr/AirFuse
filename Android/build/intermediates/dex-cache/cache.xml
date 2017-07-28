@@ -3,48 +3,183 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="C:\Users\Utkarsh\.android\build-cache\4757f833367db1ad8ea0d411e768419a14f8ac19\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
-        sha1="ff39ee7954eb4fe937cecff90edf3c6c154e6b4c">
-        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_af620e9c1f76da4132ccce831700571648fd002f\classes.dex" />
+        sha1="cddcd0fb93bc70e27325f2f715b2710332004ebb">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_344dba26c55c0b1561172aed1c51085f55b43529\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\krisz\.android\build-cache\fb25ebce23b92367f99d0d532c783d0af5c886b2\output\jars\classes.jar"
+        jar="C:\Users\Utkarsh\.android\build-cache\be727d06c518116ec62cced5410206b0ab9af48d\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
         sha1="348f7af741bba2f8aaaa29ba5fa5dd446097e6a6">
-        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0b4be4b6157b5074c7ab953087fd3b87bc81d5c4\classes.dex" />
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bb1d056df4e2acfff9316c8ef24eb7c3c32e87b0\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\krisz\.gradle\caches\modules-2\files-2.1\com.github.PhilJay\MPAndroidChart\v3.0.2\5d4eb08a326bdbd7fbbddc769666898c9936b282\MPAndroidChart-v3.0.2.jar"
+        jar="C:\Users\Utkarsh\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
-        sha1="5d4eb08a326bdbd7fbbddc769666898c9936b282">
-        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\MPAndroidChart-v3.0.2_57789b0e63c6b172cc1a7710d500cd5864c3a1cd\classes.dex" />
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.2_9481a778291fae5bec9be3868652dda297aad1f1\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_c28c6b7c676fc364aefb6a6bf4c5cab15f76802a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\krisz\.android\build-cache\9fdb3c85753d7ed60ee3d3330147c1fd06a14fd0\output\jars\classes.jar"
+        jar="C:\Users\Utkarsh\.android\build-cache\f0733cde746d857b195d7b66d58107c1888df87a\output\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
         sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
-        <dex dex="C:\Users\krisz\Documents\GitHub\airfuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c1322f6308c5b5959347d69534852dd351a9b000\classes.dex" />
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5f01f62dab4c54ddead56b92952c086b90f44670\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\524c72233f1e2d9da42f7de3aa947d3ebb563e1e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="6a022bf00ccd0948a8180c505e8e458bbddd43a6">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_426c5e9ee2210be5100f719b5c64cb483fa2a260\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\be6a7ef4e341a44026ead7fc4ab82097405b8846\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5f74f5256b0e202c841683521fba70ba2f716709\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\748cca20772414ccbbf8d647d48faf345296fefa\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bae095054bde74aa9944ed384d8d3d1eb5379ab9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\26.0.0-alpha1\support-annotations-26.0.0-alpha1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-26.0.0-alpha1_35fe3336d3c00b424a201b64845b904d2eb6d649\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\7ac88c89f3436884a807a83e4243fb55e907ce3b\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8e4e821a1c0bb37533266a71174bfde35f94a671\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\60808b987cbc54a46fc523f1455a63fcff4bb3b3\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1992c2f1ca219335c1f3b7c05dd4639c71625311\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\e1c13779f76857e475235dd2f9befc20ecff3c60\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1470fe5b0488782f20598349ffbd655c77600e4c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\799d505fe45e9be2bce93fecc93969a6a8532e75\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_534c484e6e59dabd090b7685aa045d1766cac1ea\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\467251d82230621a374b76f08cf7ed37dabefa0e\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f00394873b0cc4d81fe22cc59560e12eb19f22ad\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.gradle\caches\modules-2\files-2.1\com.github.PhilJay\MPAndroidChart\v3.0.2\5d4eb08a326bdbd7fbbddc769666898c9936b282\MPAndroidChart-v3.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="5d4eb08a326bdbd7fbbddc769666898c9936b282">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\MPAndroidChart-v3.0.2_bef59ed57de88b727bf1271e8f260706e3cd2b42\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="9e341e04535e686709a45cbf88878b78999e3d56">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_b28a05733be7b81ca221ea79dcce57f762dc6b7f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\799c8c15ba0eabe350bd97f71aced90b5a71f92d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ebfcf4cdfb2d9a5a5bc4c8cd30f5950ee9f219e0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\810064725346fc00b103e5cfc3d427c08924be89\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_32a62aed974dddee04c7bd79dd26a51bf1ee67f5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\d1d2231383e68f37e71eb0e263248dc68e2930ab\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="c4f45092eee6cdf1a5dbd597b2b6819be652ce2e">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_30c68964d5b60dbb1baa3a9aeb709e6c90fa9c41\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_f92382157304a442413fdfa7e45d395601f6b563\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Utkarsh\.android\build-cache\8f298c47256cf106c6134f3947152a9428f20b09\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="F:\Utkarsh\Git\AirFuse\Android\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5a1fca04f5bf1671dd5e8bb27db09d9c7cb7b6d3\classes.dex" />
     </item>
 
 </items>
